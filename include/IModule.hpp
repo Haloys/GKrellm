@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <string>
+
 namespace Krell {
     class IModule {
         public:

@@ -18,7 +18,7 @@ namespace Krell {
             public:
                 MemoryInfo();
                 ~MemoryInfo();
-                void refresh();
+                void refresh() override;
 
                 // note that the values are in KB
                 size_t Total() const { return _memoryInfo.at("MemTotal:"); }
