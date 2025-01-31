@@ -10,6 +10,7 @@
 namespace Krell {
     class IModule {
         public:
+            bool enabled = true;
             virtual ~IModule() = default;
             virtual void refresh() = 0;
     };
