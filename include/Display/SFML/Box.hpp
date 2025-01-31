@@ -10,7 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-namespace Box {
+namespace Display {
     class Box {
         public:
             Box(sf::Vector2f size);
@@ -19,6 +19,8 @@ namespace Box {
             void setPosition(sf::Vector2f position);
 
             void draw(sf::RenderWindow &window);
+
+            sf::RectangleShape getRectangle() { return _rectangle; }
 
         private:
             sf::RectangleShape _rectangle;
