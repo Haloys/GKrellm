@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IModule.hpp"
+
 #include <string>
 
 namespace Krell {
@@ -23,6 +24,7 @@ namespace Krell {
                 CpuUsage();
                 ~CpuUsage();
                 void refresh();
+                double getValue(const std::string& key) const override;
             private:
 
                 size_t _user;

@@ -7,9 +7,12 @@
 
 #include <memory>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "NCursesDisplay.hpp"
 #include "SFMLDisplay.hpp"
+#include "Modules/CpuUsage.hpp"
 
 static std::unique_ptr<Krell::IDisplay> createDisplay(const std::string& mode)
 {
@@ -23,10 +26,23 @@ static std::unique_ptr<Krell::IDisplay> createDisplay(const std::string& mode)
 static void run(Krell::IDisplay& display)
 {
     display.start();
+    Krell::Modules::CpuUsage cpuModule;
+    int frameCount = 0;
+    // Debug:
+    std::cerr << "Starting main loop" << std::endl;
     while (display.isRunning()) {
+        // Debug:
+        std::cerr << "Frame " << ++frameCount << std::endl;
         display.handleEvents();
+        // Debug:
+        std::cerr << "Calling refresh..." << std::endl;
+        cpuModule.refresh();
+        display.drawModule(cpuModule);
         display.refresh();
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+    // Debug:
+    std::cerr << "Main loop ended" << std::endl;
     display.stop();
 }
 
