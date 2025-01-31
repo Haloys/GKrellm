@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <vector>
+
+#include "IModule.hpp"
+
 namespace Krell {
     class IDisplay {
         public:
@@ -16,5 +20,6 @@ namespace Krell {
             virtual void stop() = 0;
             virtual bool isRunning() const = 0;
             virtual void handleEvents() = 0;
+            virtual void drawModule(const IModule& module) = 0;
         };
 }
