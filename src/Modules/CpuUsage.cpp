@@ -31,6 +31,8 @@ void Krell::Modules::CpuUsage::refresh()
         return;
     }
     // Debug:
+    std::cerr << "percentage: " << usedPercent << std::endl;
+    std::cerr << "percentage: " << freePercent << std::endl;
     std::cerr << "Raw line: " << line << std::endl;
     std::istringstream ss(line);
     std::string cpu;
@@ -41,20 +43,16 @@ void Krell::Modules::CpuUsage::refresh()
     _used = _total - _idle;
     _free = _idle;
 
-    auto now = time(nullptr);
-    if (_lastRefresh != 0) {
-        usedPercent = 100 * (used - _used) / (_total - total);
-        freePercent = 100 * (free - _free) / (_total - total);
-
-
-        total = _total;
-        used = _used;
-        free = _free;
-    } else {
-        total = 0;
-        used = 0;
-        free = 0;
+    if (total - _total == 0) {
+        return;
     }
+    usedPercent = 100 * (_used - used) / (_total - total);
+    freePercent = 100 * (_free - free) / (_total - total);
+
+
+    total = _total;
+    used = _used;
+    free = _free;
 }
 
 double Krell::Modules::CpuUsage::getValue(const std::string& key) const
@@ -66,8 +64,8 @@ double Krell::Modules::CpuUsage::getValue(const std::string& key) const
     if (key == "free")
         return static_cast<double>(free);
     if (key == "usedPercent")
-        return static_cast<double>(usedPercent());
+        return static_cast<double>(usedPercent);
     if (key == "freePercent")
-        return static_cast<double>(freePercent());
+        return static_cast<double>(freePercent);
     return 0.0;
 }
