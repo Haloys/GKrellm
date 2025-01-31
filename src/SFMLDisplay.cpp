@@ -7,16 +7,14 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
-
 #include "SFMLDisplay.hpp"
-
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/Chart.hpp"
 #include "Display/SFML/ClockDisplay.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false)
+Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay()
 {
 
 }
@@ -38,6 +36,10 @@ void Krell::SFMLDisplay::start()
 void Krell::SFMLDisplay::refresh()
 {
     _window.clear(BG_COLOR);
+
+    for (const auto& [name, module] : _modules) {
+        module.refresh();
+    }
 
     Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
 
