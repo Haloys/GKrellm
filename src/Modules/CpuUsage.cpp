@@ -36,29 +36,25 @@ void Krell::Modules::CpuUsage::refresh()
     std::string cpu;
     ss >> cpu;
     ss >> _user >> _nice >> _system >> _idle >> _iowait >> _irq >> _softirq;
+
     _total = _user + _nice + _system + _idle + _iowait + _irq + _softirq;
     _used = _total - _idle;
     _free = _idle;
-    total = _total;
-    used = _used;
-    free = _free;
 
-    // Debug:
-    std::cerr   << "Debug CPU Values:" << std::endl
-                << "  Raw values:" << std::endl
-                << "    user: " << _user << std::endl
-                << "    nice: " << _nice << std::endl
-                << "    system: " << _system << std::endl
-                << "    idle: " << _idle << std::endl
-                << "    iowait: " << _iowait << std::endl
-                << "    irq: " << _irq << std::endl
-                << "    softirq: " << _softirq << std::endl
-                << "  Calculated values:" << std::endl
-                << "    Total: " << _total << std::endl
-                << "    Used: " << _used << std::endl
-                << "    Free: " << _free << std::endl
-                << "    CPU Usage: " << (static_cast<double>(_used) * 100.0 / static_cast<double>(_total)) << "%"
-                << std::endl << "-------------------------------" << std::endl;
+    auto now = time(nullptr);
+    if (_lastRefresh != 0) {
+        usedPercent = 100 * (used - _used) / (_total - total);
+        freePercent = 100 * (free - _free) / (_total - total);
+
+
+        total = _total;
+        used = _used;
+        free = _free;
+    } else {
+        total = 0;
+        used = 0;
+        free = 0;
+    }
 }
 
 double Krell::Modules::CpuUsage::getValue(const std::string& key) const

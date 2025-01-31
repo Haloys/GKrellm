@@ -19,13 +19,14 @@ namespace Krell {
                 size_t used;
                 size_t free;
 
-                size_t usedPercent() const { return (used * 100) / total; }
-                size_t freePercent() const { return (free * 100) / total; }
+                size_t usedPercent = 0;
+                size_t freePercent = 0;
                 CpuUsage();
                 ~CpuUsage();
-                void refresh();
+                void refresh() override;
                 double getValue(const std::string& key) const override;
             private:
+                time_t _lastRefresh;
 
                 size_t _user;
                 size_t _nice;
