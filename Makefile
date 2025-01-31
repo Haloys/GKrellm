@@ -13,6 +13,8 @@ CC := g++
 
 SRC := $(shell find src/ -name "*.cpp")
 
+LDFLAGS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lncurses
+
 ifeq ($(filter debug, $(MAKECMDGOALS)),)
 else
 BUILD_DIR ?= ./.build/debug
@@ -37,7 +39,7 @@ all:
 
 $(BUILD_BIN): $(OBJ)
 	@mkdir -p $(@D)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 .PHONY: $(BIN)
 $(BIN): $(BUILD_BIN)
