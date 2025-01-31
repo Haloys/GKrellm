@@ -1,14 +1,15 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/src/main
+** Src/main
 ** File description:
-** central file
+** Main
 */
+
+#include <memory>
+#include <iostream>
 
 #include "NCursesDisplay.hpp"
 #include "SFMLDisplay.hpp"
-#include <memory>
-#include <iostream>
 
 static std::unique_ptr<Krell::IDisplay> createDisplay(const std::string& mode)
 {

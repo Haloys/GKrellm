@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/src/main
+** Src/SFMLDisplay
 ** File description:
-** central file
+** SFMLDisplay
 */
 
 #include "SFMLDisplay.hpp"

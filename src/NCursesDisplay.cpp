@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/src/main
+** Src/NcursesDisplay
 ** File description:
-** central file
+** NcursesDisplay
 */
 
 #include "NCursesDisplay.hpp"
