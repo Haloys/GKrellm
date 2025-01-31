@@ -6,12 +6,13 @@
 */
 
 #pragma once
-#include "IDisplay.hpp"
+
 #include <ncurses.h>
+
+#include "IDisplay.hpp"
 
 namespace Krell {
     class NCursesDisplay : public IDisplay {
-    private:
         WINDOW* _window;
         bool _isRunning;
 
@@ -21,5 +22,7 @@ namespace Krell {
         void refresh() override;
         void start() override;
         void stop() override;
+        bool isRunning() const override;
+        void handleEvents() override;
     };
 }

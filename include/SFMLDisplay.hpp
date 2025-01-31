@@ -6,12 +6,13 @@
 */
 
 #pragma once
-#include "IDisplay.hpp"
+
 #include <SFML/Graphics.hpp>
+
+#include "IDisplay.hpp"
 
 namespace Krell {
     class SFMLDisplay : public IDisplay {
-    private:
         sf::RenderWindow _window;
         bool _isRunning;
 
@@ -21,5 +22,7 @@ namespace Krell {
         void refresh() override;
         void start() override;
         void stop() override;
+        bool isRunning() const override;
+        void handleEvents() override;
     };
 }
