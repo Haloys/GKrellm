@@ -6,7 +6,10 @@
 */
 
 #include "SFMLDisplay.hpp"
+
 #include "Display/SFML/Box.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/Container.hpp"
 
 Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false)
 {
@@ -29,18 +32,36 @@ void Krell::SFMLDisplay::start()
 
 void Krell::SFMLDisplay::refresh()
 {
-    _window.clear(sf::Color(32, 32, 32));
-    Box::Box box(sf::Vector2f(200, 100));
-    box.setPosition(sf::Vector2f(100, 100));
+    _window.clear(BG_COLOR);
+
+    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
+
+    Display::Box box(container.getSize());
+    box.setPosition(container.getPosition());
     box.draw(_window);
-    box.setPosition(sf::Vector2f(400, 100));
+
+    container.setPosition(sf::Vector2f(400, 100));
+    box.setPosition(container.getPosition());
     box.draw(_window);
-    box.setPosition(sf::Vector2f(700, 100));
+
+    container.setPosition(sf::Vector2f(700, 100));
+    box.setPosition(container.getPosition());
     box.draw(_window);
-    box.setPosition(sf::Vector2f(1000, 100));
+
+    container.setPosition(sf::Vector2f(1000, 100));
+    box.setPosition(container.getPosition());
     box.draw(_window);
-    box.setPosition(sf::Vector2f(1300, 100));
+
+    container.setPosition(sf::Vector2f(1300, 100));
+    box.setPosition(container.getPosition());
     box.draw(_window);
+
+    container.setPosition(sf::Vector2f(100, 300));
+    Display::ProgressBar progressBar(container.getSize());
+    progressBar.setPosition(container.getPosition());
+    progressBar.setProgress(50);
+    progressBar.draw(_window);
+
     _window.display();
 }
 

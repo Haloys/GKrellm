@@ -8,14 +8,15 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+#include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 
-namespace Box
+namespace Display
 {
     Box::Box(sf::Vector2f size)
     {
         _rectangle.setSize(size);
-        _rectangle.setFillColor(sf::Color(50, 50, 50)); // #323232 in RGB
+        _rectangle.setFillColor(BOX_COLOR);
         // _rectangle.setOutlineThickness(2);
         // _rectangle.setOutlineColor(sf::Color::Black);
     }
