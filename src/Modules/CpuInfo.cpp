@@ -5,11 +5,12 @@
 ** cpu
 */
 
-#include "Modules/CpuInfo.hpp"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <map>
+
+#include "Modules/CpuInfo.hpp"
 
 Krell::Modules::CpuInfo::CpuInfo()
 {
@@ -41,4 +42,15 @@ void Krell::Modules::CpuInfo::refresh()
         value.erase(value.find_last_not_of(" \t") + 1);
         _cpuInfo[key] = value;
     }
+}
+
+double Krell::Modules::CpuInfo::getValue(const std::string& key) const
+{
+    if (key == "cores")
+        return static_cast<double>(CpuCores());
+    if (key == "threads")
+        return static_cast<double>(CpuThreads());
+    if (key == "mhz")
+        return static_cast<double>(CpuMhz());
+    return 0.0;
 }

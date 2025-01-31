@@ -30,10 +30,6 @@ void Krell::Modules::CpuUsage::refresh()
         std::cerr << "Failed to read /proc/stat" << std::endl;
         return;
     }
-    // Debug:
-    std::cerr << "percentage: " << usedPercent << std::endl;
-    std::cerr << "percentage: " << freePercent << std::endl;
-    std::cerr << "Raw line: " << line << std::endl;
     std::istringstream ss(line);
     std::string cpu;
     ss >> cpu;
@@ -48,7 +44,6 @@ void Krell::Modules::CpuUsage::refresh()
     }
     usedPercent = 100 * (_used - used) / (_total - total);
     freePercent = 100 * (_free - free) / (_total - total);
-
 
     total = _total;
     used = _used;

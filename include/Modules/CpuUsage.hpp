@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/include/Modules/CpuUsage
+** Include/Modules/CpuUsage
 ** File description:
-** cpu module
+** CpuUsage
 */
 
 #pragma once

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/include/Modules/CpuInfo
+** Include/Modules/CpuInfo
 ** File description:
-** cpu module
+** CpuInfo
 */
 
 #pragma once
@@ -17,7 +17,8 @@ namespace Krell {
             public:
                 CpuInfo();
                 ~CpuInfo();
-                void refresh() override;
+                void refresh();
+                double getValue(const std::string& key) const override;
                 std::string ModelName() const { return _cpuInfo.at("model name"); }
                 std::string VendorId() const { return _cpuInfo.at("vendor_id"); }
                 std::string CpuFamily() const { return _cpuInfo.at("cpu family"); }
