@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/include/IDisplay
+** Include/IModule
 ** File description:
-** modules
+** IModule
 */
 
 #pragma once
