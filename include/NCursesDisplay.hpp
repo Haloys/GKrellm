@@ -10,6 +10,7 @@
 #include <ncurses.h>
 
 #include "IDisplay.hpp"
+#include "IModule.hpp"
 
 namespace Krell {
     class NCursesDisplay : public IDisplay {
@@ -24,6 +25,6 @@ namespace Krell {
         void stop() override;
         bool isRunning() const override;
         void handleEvents() override;
-        void drawModule(const IModule& module) override {};
+        void drawModule(const IModule& module) override;
     };
 }
