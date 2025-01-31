@@ -34,14 +34,14 @@ int main(int ac, char **av)
 {
     if (ac != 2) {
         std::cerr << "Usage: " << av[0] << " [ncurses/sfml]" << std::endl;
-        return 1;
+        return 84;
     }
     try {
         auto display = createDisplay(av[1]);
         run(*display);
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
+        return 84;
     }
     return 0;
 }
