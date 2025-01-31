@@ -7,7 +7,7 @@
 
 #include "SFMLDisplay.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false)
+Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay()
 {
 
 }

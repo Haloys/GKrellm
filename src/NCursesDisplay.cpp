@@ -7,7 +7,7 @@
 
 #include "NCursesDisplay.hpp"
 
-Krell::NCursesDisplay::NCursesDisplay() : _isRunning(false)
+Krell::NCursesDisplay::NCursesDisplay() : _isRunning(false), IDisplay()
 {
 
 }
