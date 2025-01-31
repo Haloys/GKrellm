@@ -6,6 +6,7 @@
 */
 
 #include "SFMLDisplay.hpp"
+#include "Display/SFML/Box.hpp"
 
 Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false)
 {
@@ -21,13 +22,25 @@ Krell::SFMLDisplay::~SFMLDisplay()
 
 void Krell::SFMLDisplay::start()
 {
-    _window.create(sf::VideoMode(800, 600), "MyGKrellm");
+    _window.create(sf::VideoMode(1600, 1024), "MyGKrellm");
     _window.setFramerateLimit(60);
     _isRunning = true;
 }
 
 void Krell::SFMLDisplay::refresh()
 {
+    _window.clear(sf::Color(32, 32, 32));
+    Box::Box box(sf::Vector2f(200, 100));
+    box.setPosition(sf::Vector2f(100, 100));
+    box.draw(_window);
+    box.setPosition(sf::Vector2f(400, 100));
+    box.draw(_window);
+    box.setPosition(sf::Vector2f(700, 100));
+    box.draw(_window);
+    box.setPosition(sf::Vector2f(1000, 100));
+    box.draw(_window);
+    box.setPosition(sf::Vector2f(1300, 100));
+    box.draw(_window);
     _window.display();
 }
 
