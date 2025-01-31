@@ -10,11 +10,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "IDisplay.hpp"
+#include "IModule.hpp"
 
 namespace Krell {
     class SFMLDisplay : public IDisplay {
         sf::RenderWindow _window;
         bool _isRunning;
+        sf::Font _font;
 
     public:
         SFMLDisplay();
@@ -24,5 +26,6 @@ namespace Krell {
         void stop() override;
         bool isRunning() const override;
         void handleEvents() override;
+        void drawModule(const IModule& module) override;
     };
 }
