@@ -46,3 +46,14 @@ void Krell::Modules::Battery::refresh() {
     file >> _batteryTime;
     file.close();
 }
+
+double Krell::Modules::Battery::getValue(ModuleKey key) const
+{
+    if (key == ModuleKey::UP)
+        return isCharging();
+    if (key == ModuleKey::TOTAL)
+        return getBatteryPercent();
+    if (key == ModuleKey::USED)
+        return getBatteryTime();
+    return 0.0;
+}
