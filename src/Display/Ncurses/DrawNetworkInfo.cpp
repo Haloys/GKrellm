@@ -24,33 +24,53 @@ void formatBytes(std::stringstream& ss, double bytes)
     }
 }
 
+void Krell::NCursesDisplay::drawDiskInfo(int maxX)
+{
+    const auto& diskInfo = dynamic_cast<const Modules::Disk&>(*_modules.at("disk"));
+    std::stringstream totalDisk, usedDisk, freeDisk;
+
+    drawBox(33, 1, 4, maxX - 3, "Disk Information");
+
+    formatBytes(totalDisk, diskInfo.getValue(Krell::IModule::TOTAL));
+    formatBytes(usedDisk, diskInfo.getValue(Krell::IModule::USED));
+    formatBytes(freeDisk, diskInfo.getValue(Krell::IModule::FREE));
+
+    mvprintw(34, 3, "Disk Usage:");
+    drawProgressBar(35, 3, diskInfo.getValue(Krell::IModule::USEDPERCENT), maxX - 13);
+    mvprintw(36, 3, "Total: %s Used: %s Free: %s", totalDisk.str().c_str(), usedDisk.str().c_str(), freeDisk.str().c_str());
+}
+
 void Krell::NCursesDisplay::drawNetworkInfo(int maxX)
 {
     const auto& netInfo = dynamic_cast<const Modules::Network&>(*_modules.at("network"));
-    drawBox(37, 1, 6, maxX - 3, "Network Information");
+    drawBox(38, 1, 6, maxX - 3, "Network Information");
 
     bool isUp = netInfo.getValue(Krell::IModule::UP) > 0.5;
     attron(COLOR_PAIR(isUp ? 1 : 5) | A_BOLD);
-    mvprintw(38, 3, "Status: %s", isUp ? "CONNECTED" : "DISCONNECTED");
+    mvprintw(39, 3, "Status: %s", isUp ? "CONNECTED" : "DISCONNECTED");
     attroff(COLOR_PAIR(isUp ? 1 : 5) | A_BOLD);
 
     std::stringstream bytesSent, bytesReceived;
     formatBytes(bytesSent, netInfo.getValue(Krell::IModule::BYTES_SENT));
     formatBytes(bytesReceived, netInfo.getValue(Krell::IModule::BYTES_RECEIVED));
 
-    attron(COLOR_PAIR(4));
-    mvprintw(39, maxX - 40, "^ Upload");
-    attroff(COLOR_PAIR(4));
-    mvprintw(40, maxX - 40, "Bytes: %s", bytesSent.str().c_str());
-    mvprintw(41, maxX - 40, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_SENT));
+    int center = maxX / 2;
+    int leftCol = (maxX / 4);
+    int rightCol = (maxX * 5) / 8;
 
     attron(COLOR_PAIR(2));
-    mvprintw(39, 18, "v Download");
+    mvprintw(40, leftCol, "v Download");
     attroff(COLOR_PAIR(2));
-    mvprintw(40, 18, "Bytes: %s", bytesReceived.str().c_str());
-    mvprintw(41, 18, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_RECEIVED));
+    mvprintw(41, leftCol, "Bytes: %s", bytesReceived.str().c_str());
+    mvprintw(42, leftCol, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_RECEIVED));
 
-    for (int i = 39; i <= 41; i++) {
-        mvaddch(i, maxX/2 - 2, ACS_VLINE);
+    for (int i = 40; i <= 42; i++) {
+        mvaddch(i, center, ACS_VLINE);
     }
+
+    attron(COLOR_PAIR(4));
+    mvprintw(40, rightCol, "^ Upload");
+    attroff(COLOR_PAIR(4));
+    mvprintw(41, rightCol, "Bytes: %s", bytesSent.str().c_str());
+    mvprintw(42, rightCol, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_SENT));
 }

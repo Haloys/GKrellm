@@ -19,6 +19,7 @@
 #include "Modules/HostInfo.hpp"
 #include "Modules/OsInfo.hpp"
 #include "Modules/Network.hpp"
+#include "Modules/Disk.hpp"
 
 namespace Krell {
     class IModule;
@@ -41,6 +42,7 @@ namespace Krell {
                 _modules["host"] = std::make_unique<Modules::HostInfo>();
                 _modules["os"] = std::make_unique<Modules::OsInfo>();
                 _modules["network"] = std::make_unique<Modules::Network>();
+                _modules["disk"] = std::make_unique<Modules::Disk>();
             };
             virtual ~IDisplay() = default;
             void refresh_all() {

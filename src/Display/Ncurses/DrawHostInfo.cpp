@@ -19,15 +19,15 @@ void Krell::NCursesDisplay::drawHostInfo(int maxX)
 
     std::string hostname = hostInfo.getHostname();
     std::string username = hostInfo.getUsername();
-    drawBox(5, startX, 3, boxWidth, "System Information");
+    drawBox(1, startX, 3, boxWidth, "System Information");
     int hostnameStart = startX + (boxWidth - hostname.length()) / 2;
     attron(COLOR_PAIR(2) | A_BOLD);
-    mvprintw(6, hostnameStart, "%s", hostname.c_str());
+    mvprintw(2, hostnameStart, "%s", hostname.c_str());
     attroff(COLOR_PAIR(2) | A_BOLD);
 
     std::string userInfo = "User: " + username;
     int userStart = startX + (boxWidth - userInfo.length()) / 2;
     attron(COLOR_PAIR(3));
-    mvprintw(7, userStart, "%s", userInfo.c_str());
+    mvprintw(3, userStart, "%s", userInfo.c_str());
     attroff(COLOR_PAIR(3));
 }
