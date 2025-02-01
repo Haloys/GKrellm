@@ -18,6 +18,7 @@ void Krell::NCursesDisplay::drawBox(int y, int x, int height, int width, const s
     mvaddch(y, x + width, ACS_URCORNER);
     mvaddch(y + height, x, ACS_LLCORNER);
     mvaddch(y + height, x + width, ACS_LRCORNER);
+
     attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(y, x + 2, " %s ", title.c_str());
     attroff(COLOR_PAIR(2) | A_BOLD);

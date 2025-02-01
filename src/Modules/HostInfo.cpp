@@ -18,6 +18,7 @@ Krell::Modules::HostInfo::HostInfo()
 void Krell::Modules::HostInfo::refreshHostname()
 {
     char hostname[HOST_NAME_MAX];
+
     if (gethostname(hostname, HOST_NAME_MAX) == 0) {
         _hostname = hostname;
     } else {
@@ -29,6 +30,7 @@ void Krell::Modules::HostInfo::refreshUsername()
 {
     uid_t uid = geteuid();
     struct passwd *pw = getpwuid(uid);
+
     if (pw) {
         _username = pw->pw_name;
     } else {

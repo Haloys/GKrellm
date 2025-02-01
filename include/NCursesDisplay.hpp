@@ -26,6 +26,7 @@ namespace Krell {
             void drawCpuUsage(int maxX);
             void drawMemoryInfo(int maxX);
             void drawHostInfo(int maxX);
+            void drawOsInfo(int maxX);
 
         public:
             NCursesDisplay();

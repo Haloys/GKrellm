@@ -22,14 +22,17 @@ void Krell::NCursesDisplay::drawProgressBar(int y, int x, double percentage, int
     if (percentage > 80) {
         redWidth = totalUsedWidth - greenWidth - orangeWidth;
     }
+
     attron(COLOR_PAIR(1));
     for (int i = 0; i < greenWidth; i++)
         printw("|");
     attroff(COLOR_PAIR(1));
+
     attron(COLOR_PAIR(4));
     for (int i = 0; i < orangeWidth; i++)
         printw("|");
     attroff(COLOR_PAIR(4));
+
     attron(COLOR_PAIR(5));
     for (int i = 0; i < redWidth; i++)
         printw("|");

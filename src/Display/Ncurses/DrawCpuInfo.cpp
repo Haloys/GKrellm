@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** src/Display/Ncurses/DrawInfo
+** src/Display/Ncurses/DrawCpuInfo
 ** File description:
-** DrawInfo
+** DrawCpuInfo
 */
 
 #include "NCursesDisplay.hpp"
@@ -14,7 +14,9 @@
 void Krell::NCursesDisplay::drawCpuInfo(int maxX)
 {
     const auto& cpuInfo = dynamic_cast<const Modules::CpuInfo&>(*_modules.at("cpu_info"));
+
     drawBox(10, 1, 7, maxX - 3, "CPU Information");
+
     mvprintw(11, 3, "Model: %s", cpuInfo.ModelName().c_str());
     mvprintw(12, 3, "Cores: %zu (Threads: %zu)", cpuInfo.CpuCores(), cpuInfo.CpuThreads());
     mvprintw(13, 3, "Frequency: %zu MHz", cpuInfo.CpuMhz());
@@ -25,7 +27,9 @@ void Krell::NCursesDisplay::drawCpuInfo(int maxX)
 void Krell::NCursesDisplay::drawCpuUsage(int maxX)
 {
     const auto& cpuUsage = dynamic_cast<const Modules::CpuUsage&>(*_modules.at("cpu_usage"));
+
     drawBox(18, 1, 5, maxX - 3, "CPU Usage");
+
     mvprintw(19, 3, "Current CPU Usage:");
     drawProgressBar(20, 3, cpuUsage.getValue(Krell::IModule::USEDPERCENT), maxX - 13);
     mvprintw(21, 3, "Free: %.1f%%", cpuUsage.getValue(Krell::IModule::FREEPERCENT));
@@ -45,8 +49,10 @@ void formatMemory(std::stringstream& ss, size_t kb)
 void Krell::NCursesDisplay::drawMemoryInfo(int maxX)
 {
     const auto& memInfo = dynamic_cast<const Modules::MemoryInfo&>(*_modules.at("mem"));
-    drawBox(24, 1, 8, maxX - 3, "Memory Information");
     std::stringstream totalMem, usedMem, availMem, swapTotal, swapUsed;
+
+    drawBox(24, 1, 8, maxX - 3, "Memory Information");
+
     formatMemory(totalMem, memInfo.Total());
     formatMemory(usedMem, memInfo.Used());
     formatMemory(availMem, memInfo.Available());
