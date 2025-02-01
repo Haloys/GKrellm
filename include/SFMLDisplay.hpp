@@ -45,5 +45,6 @@ namespace Krell {
         int getRefreshDelay() { return _refreshDelay; }
         sf::Clock &getDelayClock() { return _delayClock; }
         sf::RenderWindow &getWindow() { return _window; }
+        std::unique_ptr<IModule> &getModule(const std::string &name) { return _modules[name]; }
     };
 }

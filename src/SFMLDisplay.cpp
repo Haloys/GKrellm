@@ -60,6 +60,11 @@ void Krell::SFMLDisplay::refresh()
         refresh_all();
     }
 
+    for (const auto &[name, module] : _modules)
+    {
+        module->drawModule(*this);
+    }
+
     // Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
     // Display::ProgressBar progressBar(sf::Vector2f(360, 50), getFont());
 
