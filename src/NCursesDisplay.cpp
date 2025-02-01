@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/NcursesDisplay
+** src/NcursesDisplay
 ** File description:
 ** NcursesDisplay
 */
@@ -27,14 +27,17 @@ void Krell::NCursesDisplay::start()
     cbreak();
     start_color();
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_CYAN, COLOR_BLACK);
     keypad(_window, TRUE);
     nodelay(_window, TRUE);
     timeout(0);
     _isRunning = true;
+    curs_set(0);
 }
 
 void Krell::NCursesDisplay::refresh()
 {
+    refresh_all();
     ::refresh();
 }
 
@@ -59,29 +62,16 @@ bool Krell::NCursesDisplay::isRunning() const
     return _isRunning;
 }
 
-void Krell::NCursesDisplay::drawModule(const IModule& module)
+
+void Krell::NCursesDisplay::drawModule([[maybe_unused]] const IModule& module)
 {
     clear();
-    attron(A_BOLD);
-    mvprintw(1, 2, "CPU STATISTICS");
-    attroff(A_BOLD);
-    mvprintw(3, 2, "CPU Usage:");
-    float usagePercent = static_cast<float>(module.getValue(IModule::USEDPERCENT));
-    mvprintw(4, 2, "[");
-    int barWidth = 50;
-    int usedWidth = static_cast<int>((usagePercent / 100.0f) * barWidth);
-    attron(COLOR_PAIR(1));
-    for (int i = 0; i < usedWidth; i++)
-        printw("|");
-    attroff(COLOR_PAIR(1));
-    for (int i = usedWidth; i < barWidth; i++)
-        printw(" ");
-    printw("] %.1f%%", usagePercent);
-    mvprintw(6, 2, "Used CPU: %.1f%%", usagePercent);
-    mvprintw(7, 2, "Free CPU: %.1f%%", module.getValue(IModule::FREEPERCENT));
-    mvprintw(9, 2, "----------------------------------------");
-    move(LINES - 1, 0);
+    int maxY, maxX;
+    getmaxyx(_window, maxY, maxX);
+
+    drawBox(1, 1, 7, maxX - 3, "CPU Information");
+
     attron(A_DIM);
-    mvprintw(LINES - 2, 2, "Press 'q' to quit");
+    mvprintw(maxY - 1, 2, "Press 'q' to quit | Update interval: 100ms");
     attroff(A_DIM);
 }
