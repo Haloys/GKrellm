@@ -12,6 +12,11 @@
 
 #include "Modules/CpuInfo.hpp"
 #include "IModule.hpp"
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/Chart.hpp"
+#include "Utils.hpp"
 
 Krell::Modules::CpuInfo::CpuInfo()
 {
@@ -66,5 +71,20 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
 {
-(void)disp;
+    Display::Container container(sf::Vector2f(50, 370), sf::Vector2f(400, 200));
+    Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
+
+    container.draw(disp.getWindow());
+
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", disp.getFont());
+    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    cpuInfoTextBox.draw(disp.getWindow());
+
+    std::string cpuInfo = "Cores: " + std::to_string(int(getValue(IModule::CORES))) + "\n";
+    cpuInfo += "Frequency: " + std::to_string(int(getValue(IModule::MGHZ))) + " MHz\n";
+    // cpuInfo += "Temperature: " + std::to_string(int(getValue(IModule::TEMPERATURE))) + " °C\n";
+
+    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, disp.getFont());
+    cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 20, 60));
+    cpuDetailsTextBox.draw(disp.getWindow());
 }

@@ -83,10 +83,9 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
 
 void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 50), sf::Vector2f(400, 400));
+    Display::Container container(sf::Vector2f(50, 50), sf::Vector2f(400, 290));
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
-    // CPU Usage
     container.draw(disp.getWindow());
     Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", disp.getFont());
     cpuTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
@@ -105,17 +104,4 @@ void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
     }
     chart.setData({values}, true);
     chart.draw(disp.getWindow());
-
-    // Detailed CPU Info
-    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", disp.getFont());
-    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 280));
-    cpuInfoTextBox.draw(disp.getWindow());
-
-    std::string cpuInfo = "Cores: " + std::to_string(int(disp.getModule("cpu_info")->getValue(IModule::CORES))) + "\n";
-    cpuInfo += "Frequency: " + std::to_string(int(disp.getModule("cpu_info")->getValue(IModule::MGHZ))) + " MHz\n";
-    /* cpuInfo += "Temperature: " + std::to_string(disp.getModule("cpu_info")->getValue(temp)) + " °C\n"; */
-
-    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, disp.getFont());
-    cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 20, 320));
-    cpuDetailsTextBox.draw(disp.getWindow());
 }
