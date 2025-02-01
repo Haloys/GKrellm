@@ -10,7 +10,6 @@
 
 void Krell::NCursesDisplay::drawBox(int y, int x, int height, int width, const std::string& title)
 {
-    box(_window, 0, 0);
     mvhline(y, x, 0, width);
     mvvline(y, x, 0, height);
     mvvline(y, x + width, 0, height);

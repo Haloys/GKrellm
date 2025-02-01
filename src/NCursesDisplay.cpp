@@ -31,6 +31,8 @@ void Krell::NCursesDisplay::start()
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(5, COLOR_RED, COLOR_BLACK);
     keypad(_window, TRUE);
     nodelay(_window, TRUE);
     timeout(0);
@@ -73,6 +75,9 @@ void Krell::NCursesDisplay::drawModule()
     int maxY, maxX;
     getmaxyx(_window, maxY, maxX);
 
+    //box(_window, 0, 0);
+    drawDateTime(maxX);
+    drawHostInfo(maxX);
     drawCpuInfo(maxX);
     drawCpuUsage(maxX);
     drawMemoryInfo(maxX);
