@@ -40,13 +40,19 @@ void Krell::SFMLDisplay::refresh()
         module->refresh();
     }
 
-    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
 
     refresh_all();
 
+    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
     Display::Box box(container.getSize());
+    Display::ProgressBar progressBar(container.getSize());
+
+    // CPU Usage
     box.setPosition(container.getPosition());
     box.draw(_window);
+    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
+    progressBar.setPosition(container.getPosition());
+    progressBar.draw(_window);
 
     container.setPosition(sf::Vector2f(400, 100));
     box.setPosition(container.getPosition());
@@ -65,12 +71,10 @@ void Krell::SFMLDisplay::refresh()
     box.draw(_window);
 
     container.setPosition(sf::Vector2f(100, 300));
-    Display::ProgressBar progressBar(container.getSize());
-    progressBar.setPosition(container.getPosition());
-    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
-    progressBar.draw(_window);
+    box.setPosition(container.getPosition());
+    box.draw(_window);
 
-    container.setPosition(sf::Vector2f(420, 300));
+    container.setPosition(sf::Vector2f(400, 300));
     Display::Chart chart(container.getSize());
     chart.setPosition(container.getPosition());
     chart.setData({10, 20, 30, 40, 50, 20, 10, 2, 15, 80});

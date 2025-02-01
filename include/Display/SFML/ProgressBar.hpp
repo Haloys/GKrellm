@@ -23,5 +23,6 @@ namespace Display
     private:
         Box _box;
         sf::RectangleShape _progress;
+        sf::RectangleShape _background;
     };
 }
