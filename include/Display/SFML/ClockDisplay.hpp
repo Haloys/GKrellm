@@ -12,10 +12,8 @@
 
 #include "Display/SFML/Box.hpp"
 
-namespace Display
-{
-    class ClockDisplay
-    {
+namespace Display {
+    class ClockDisplay {
     public:
         ClockDisplay(const sf::Vector2f &size, const sf::Vector2f &position);
 

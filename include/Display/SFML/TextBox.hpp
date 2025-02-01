@@ -10,10 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-namespace Display
-{
-    class TextBox
-    {
+namespace Display {
+    class TextBox {
     public:
         TextBox(sf::Vector2f size, const std::string &text, const sf::Font &font, bool box = false);
         ~TextBox() = default;

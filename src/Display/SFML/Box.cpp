@@ -11,23 +11,20 @@
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 
-namespace Display
+Display::Box::Box(sf::Vector2f size)
 {
-    Box::Box(sf::Vector2f size)
-    {
-        _rectangle.setSize(size);
-        _rectangle.setFillColor(BOX_COLOR);
-        // _rectangle.setOutlineThickness(2);
-        // _rectangle.setOutlineColor(sf::Color::Black);
-    }
+    _rectangle.setSize(size);
+    _rectangle.setFillColor(BOX_COLOR);
+    // _rectangle.setOutlineThickness(2);
+    // _rectangle.setOutlineColor(sf::Color::Black);
+}
 
-    void Box::setPosition(sf::Vector2f position)
-    {
-        _rectangle.setPosition(position);
-    }
+void Display::Box::setPosition(sf::Vector2f position)
+{
+    _rectangle.setPosition(position);
+}
 
-    void Box::draw(sf::RenderWindow &window)
-    {
-        window.draw(_rectangle);
-    }
+void Display::Box::draw(sf::RenderWindow &window)
+{
+    window.draw(_rectangle);
 }

@@ -10,14 +10,12 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-namespace Display
-{
-    class Chart
-    {
+namespace Display {
+    class Chart {
     public:
         Chart(sf::Vector2f size);
         void setPosition(sf::Vector2f position);
-        void setData(const std::vector<float>& data, bool difColor);
+        void setData(const std::vector<float> &data, bool difColor);
         void draw(sf::RenderWindow &window);
 
     private:
