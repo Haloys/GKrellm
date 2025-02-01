@@ -15,14 +15,15 @@ namespace Display
     class ProgressBar
     {
     public:
-        ProgressBar(sf::Vector2f size);
+        ProgressBar(sf::Vector2f size, const sf::Font &font);
         void setPosition(sf::Vector2f position);
         void setProgress(double percentage, bool difColor = false);
         void draw(sf::RenderWindow &window);
 
     private:
         Box _box;
-        sf::RectangleShape _progress;
         sf::RectangleShape _background;
+        sf::RectangleShape _progress;
+        sf::Text _txt;
     };
 }
