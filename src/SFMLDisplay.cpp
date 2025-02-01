@@ -18,6 +18,7 @@
 #include "Display/SFML/ClockDisplay.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/TextBox.hpp"
+#include "IModule.hpp"
 
 Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false), _refreshDelay(100)
 {
@@ -63,7 +64,7 @@ void Krell::SFMLDisplay::refresh()
     Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", _font);
     cpuTextBox.setPosition(vecCalc(container.getPosition(), 50, 70));
     cpuTextBox.draw(_window);
-    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"), true);
+    progressBar.setProgress(_modules["cpu_usage"]->getValue(IModule::USEDPERCENT), true);
     progressBar.setPosition(vecCalc(container.getPosition(), 50, 100));
     progressBar.draw(_window);
 
@@ -73,7 +74,7 @@ void Krell::SFMLDisplay::refresh()
     if (_delayClock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
         values.erase(values.begin());
-        values.push_back(_modules["cpu_usage"]->getValue("usedPercent"));
+        values.push_back(_modules["cpu_usage"]->getValue(IModule::USEDPERCENT));
     }
     chart.setData({values});
     chart.draw(_window);
@@ -83,9 +84,9 @@ void Krell::SFMLDisplay::refresh()
     cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 50, 300));
     cpuInfoTextBox.draw(_window);
 
-    std::string cpuInfo = "Cores: " + std::to_string(_modules["cpu_info"]->getValue("cores")) + "\n";
-    cpuInfo += "Frequency: " + std::to_string(_modules["cpu_info"]->getValue("frequency")) + " MHz\n";
-    cpuInfo += "Temperature: " + std::to_string(_modules["cpu_info"]->getValue("temperature")) + " °C\n";
+    std::string cpuInfo = "Cores: " + std::to_string(_modules["cpu_info"]->getValue(IModule::CORES)) + "\n";
+    cpuInfo += "Frequency: " + std::to_string(_modules["cpu_info"]->getValue(IModule::MGHZ)) + " MHz\n";
+    /* cpuInfo += "Temperature: " + std::to_string(_modules["cpu_info"]->getValue(temp)) + " °C\n"; */
 
     Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, _font);
     cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 50, 330));
@@ -97,7 +98,7 @@ void Krell::SFMLDisplay::refresh()
     Display::TextBox ramTextBox(sf::Vector2f(20, 20), "RAM Usage", _font);
     ramTextBox.setPosition(sf::Vector2f(400, 70));
     ramTextBox.draw(_window);
-    progressBar.setProgress(_modules["mem"]->getValue("usedPercent"), true);
+    progressBar.setProgress(_modules["mem"]->getValue(IModule::USEDPERCENT), true);
     progressBar.setPosition(sf::Vector2f(400, 100));
     progressBar.draw(_window);
 

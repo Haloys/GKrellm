@@ -12,8 +12,23 @@
 namespace Krell {
     class IModule {
         public:
+            enum ModuleKey {
+                CORES,
+                THREADS,
+                MGHZ,
+                TOTAL,
+                USED,
+                FREE,
+                USEDPERCENT,
+                FREEPERCENT,
+                AVAILABLE,
+                AVAILABLEPERCENT,
+                SWAP_TOTAL,
+                SWAP_USED,
+                SWAP_PERCENT,
+            };
             virtual ~IModule() = default;
             virtual void refresh() = 0;
-            virtual double getValue(const std::string& key) const = 0;
+            virtual double getValue(ModuleKey key) const = 0;
     };
 }

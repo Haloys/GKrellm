@@ -66,7 +66,7 @@ void Krell::NCursesDisplay::drawModule(const IModule& module)
     mvprintw(1, 2, "CPU STATISTICS");
     attroff(A_BOLD);
     mvprintw(3, 2, "CPU Usage:");
-    float usagePercent = static_cast<float>(module.getValue("usedPercent"));
+    float usagePercent = static_cast<float>(module.getValue(IModule::USEDPERCENT));
     mvprintw(4, 2, "[");
     int barWidth = 50;
     int usedWidth = static_cast<int>((usagePercent / 100.0f) * barWidth);
@@ -78,7 +78,7 @@ void Krell::NCursesDisplay::drawModule(const IModule& module)
         printw(" ");
     printw("] %.1f%%", usagePercent);
     mvprintw(6, 2, "Used CPU: %.1f%%", usagePercent);
-    mvprintw(7, 2, "Free CPU: %.1f%%", module.getValue("freePercent"));
+    mvprintw(7, 2, "Free CPU: %.1f%%", module.getValue(IModule::FREEPERCENT));
     mvprintw(9, 2, "----------------------------------------");
     move(LINES - 1, 0);
     attron(A_DIM);
