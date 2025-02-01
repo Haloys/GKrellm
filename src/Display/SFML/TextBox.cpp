@@ -12,7 +12,7 @@ Display::TextBox::TextBox(sf::Vector2f size, const std::string &text, const sf::
     _rectangle.setSize(size);
     _text.setString(text);
     _text.setFont(font);
-    _text.setCharacterSize(24);
+    _text.setCharacterSize(20);
     _text.setFillColor(sf::Color::White);
 }
 
