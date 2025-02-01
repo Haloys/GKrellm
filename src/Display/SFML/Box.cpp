@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/Display/SFML
+** src/Display/SFML/Box
 ** File description:
 ** Box
 */

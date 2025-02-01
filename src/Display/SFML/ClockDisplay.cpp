@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/main
+** src/Display/SFML/ClockDisplay
 ** File description:
-** Chart
+** ClockDisplay
 */
 
 #include <ctime>

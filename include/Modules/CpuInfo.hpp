@@ -7,9 +7,10 @@
 
 #pragma once
 
-#include "IModule.hpp"
 #include <string>
 #include <map>
+
+#include "IModule.hpp"
 
 namespace Krell {
     namespace Modules {
@@ -17,7 +18,7 @@ namespace Krell {
             public:
                 CpuInfo();
                 ~CpuInfo();
-                void refresh();
+                void refresh() override;
                 double getValue(const std::string& key) const override;
                 std::string ModelName() const { return _cpuInfo.at("model name"); }
                 std::string VendorId() const { return _cpuInfo.at("vendor_id"); }

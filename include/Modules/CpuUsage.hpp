@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "IModule.hpp"
-
 #include <string>
+
+#include "IModule.hpp"
 
 namespace Krell {
     namespace Modules {

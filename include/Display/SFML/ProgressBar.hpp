@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/main
+** Include/Display/SFML/ProgressBar
 ** File description:
 ** ProgressBar
 */
@@ -17,11 +17,12 @@ namespace Display
     public:
         ProgressBar(sf::Vector2f size);
         void setPosition(sf::Vector2f position);
-        void setProgress(float percentage);
+        void setProgress(double percentage);
         void draw(sf::RenderWindow &window);
 
     private:
         Box _box;
         sf::RectangleShape _progress;
+        sf::RectangleShape _background;
     };
 }

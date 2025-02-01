@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/main
+** Include/Display/SFML/ClockDisplay
 ** File description:
-** Chart
+** ClockDisplay
 */
 
 #pragma once

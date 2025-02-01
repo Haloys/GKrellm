@@ -7,6 +7,8 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <iostream>
+
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"
@@ -14,10 +16,8 @@
 #include "Display/SFML/Chart.hpp"
 #include "Display/SFML/ClockDisplay.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay()
-{
 
-}
+Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay() {}
 
 Krell::SFMLDisplay::~SFMLDisplay()
 {
@@ -38,14 +38,22 @@ void Krell::SFMLDisplay::refresh()
     _window.clear(BG_COLOR);
 
     for (const auto& [name, module] : _modules) {
-        module.refresh();
+        module->refresh();
     }
 
-    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
 
+    refresh_all();
+
+    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
     Display::Box box(container.getSize());
+    Display::ProgressBar progressBar(container.getSize());
+
+    // CPU Usage
     box.setPosition(container.getPosition());
     box.draw(_window);
+    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
+    progressBar.setPosition(container.getPosition());
+    progressBar.draw(_window);
 
     container.setPosition(sf::Vector2f(400, 100));
     box.setPosition(container.getPosition());
@@ -64,12 +72,10 @@ void Krell::SFMLDisplay::refresh()
     box.draw(_window);
 
     container.setPosition(sf::Vector2f(100, 300));
-    Display::ProgressBar progressBar(container.getSize());
-    progressBar.setPosition(container.getPosition());
-    progressBar.setProgress(50);
-    progressBar.draw(_window);
+    box.setPosition(container.getPosition());
+    box.draw(_window);
 
-    container.setPosition(sf::Vector2f(420, 300));
+    container.setPosition(sf::Vector2f(400, 300));
     Display::Chart chart(container.getSize());
     chart.setPosition(container.getPosition());
     chart.setData({10, 20, 30, 40, 50, 20, 10, 2, 15, 80});

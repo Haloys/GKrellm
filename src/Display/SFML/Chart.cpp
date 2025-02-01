@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/main
+** src/Display/SFML/Chart
 ** File description:
 ** Chart
 */
