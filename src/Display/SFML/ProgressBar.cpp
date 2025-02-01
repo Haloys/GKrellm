@@ -8,6 +8,11 @@
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 
+#define BAR_COLOR_GREEN sf::Color(100, 250, 50)
+#define BAR_COLOR_YELLOW sf::Color(250, 250, 50)
+#define BAR_COLOR_ORANGE sf::Color(250, 150, 50)
+#define BAR_COLOR_RED sf::Color(250, 100, 50)
+
 namespace Display
 {
     ProgressBar::ProgressBar(sf::Vector2f size) : _box(size)
@@ -25,12 +30,24 @@ namespace Display
         _progress.setPosition(sf::Vector2f(position.x + 10, position.y + 10));
     }
 
-    void ProgressBar::setProgress(double percentage)
+    void ProgressBar::setProgress(double percentage, bool difColor)
     {
         sf::Vector2f size = _box.getRectangle().getSize();
         size.x = (size.x - 20) * (percentage / 100.0f);
         size.y -= 20;
         _progress.setSize(size);
+        _progress.setFillColor(BAR_COLOR_GREEN);
+
+        if (difColor == false || percentage <= 25) {
+            return;
+        }
+        if (percentage <= 50) {
+            _progress.setFillColor(BAR_COLOR_YELLOW);
+        } else if (percentage <= 75) {
+            _progress.setFillColor(BAR_COLOR_ORANGE);
+        } else {
+            _progress.setFillColor(BAR_COLOR_RED);
+        }
     }
 
     void ProgressBar::draw(sf::RenderWindow &window)
