@@ -14,17 +14,21 @@
 
 namespace Krell {
     class NCursesDisplay : public IDisplay {
-        WINDOW* _window;
-        bool _isRunning;
+        private:
+            WINDOW* _window;
+            bool _isRunning;
 
-    public:
-        NCursesDisplay();
-        ~NCursesDisplay();
-        void refresh() override;
-        void start() override;
-        void stop() override;
-        bool isRunning() const override;
-        void handleEvents() override;
-        void drawModule(const IModule& module) override;
+            void drawBox(int y, int x, int height, int width, const std::string& title);
+            void drawProgressBar(int y, int x, double percentage, int width);
+
+        public:
+            NCursesDisplay();
+            ~NCursesDisplay();
+            void refresh() override;
+            void start() override;
+            void stop() override;
+            bool isRunning() const override;
+            void handleEvents() override;
+            void drawModule(const IModule& module) override;
     };
 }
