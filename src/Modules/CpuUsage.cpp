@@ -19,7 +19,7 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(0, 0))
+Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(400, 290))
 {
     refresh();
 }
@@ -83,7 +83,7 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
 
 void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 50), sf::Vector2f(400, 290));
+    Display::Container container(sf::Vector2f(50, 50), size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());
@@ -96,7 +96,7 @@ void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 
     Display::Chart chart(sf::Vector2f(360, 150));
     chart.setPosition(vecCalc(container.getPosition(), 20, 120));
-    static std::vector<float> values(10, 0);
+    static std::vector<float> values(50, 0);
     if (disp.getDelayClock().getElapsedTime().asMilliseconds() > disp.getRefreshDelay())
     {
         values.erase(values.begin());

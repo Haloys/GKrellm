@@ -18,7 +18,9 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Network::Network() : IModule(sf::Vector2f(0, 0)), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
+Krell::Modules::Network::Network() :
+    IModule(sf::Vector2f(400, 430)),
+    _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
 
 }
@@ -110,7 +112,7 @@ double Krell::Modules::Network::getValue(ModuleKey key) const {
 
 void Krell::Modules::Network::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(950, 50), sf::Vector2f(400, 430));
+    Display::Container container(sf::Vector2f(950, 50), size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());
