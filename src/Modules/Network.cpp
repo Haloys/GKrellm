@@ -12,7 +12,9 @@
 #include <dirent.h>
 #include "Modules/Network.hpp"
 
-Krell::Modules::Network::Network() : _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
+Krell::Modules::Network::Network() :
+    IModule(sf::Vector2f(0, 0)),
+    _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
 }
 
@@ -34,7 +36,7 @@ void Krell::Modules::Network::refresh() {
     }
     struct dirent *entry;
     while ((entry = readdir(dir))) {
-        if (entry->d_type == DT_DIR && entry->d_name[0] != '.') {
+        if (entry->d_name[0] != '.') {
             std::string path = "/sys/class/net/";
             path += entry->d_name;
             path += "/operstate";
