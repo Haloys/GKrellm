@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "SFMLDisplay.hpp"
+#include "Utils.hpp"
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/Container.hpp"
@@ -45,7 +46,6 @@ void Krell::SFMLDisplay::refresh()
 
     if (clock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
-        clock.restart();
         for (const auto &[name, module] : _modules)
         {
             module->refresh();
@@ -65,11 +65,35 @@ void Krell::SFMLDisplay::refresh()
 
     // CPU Usage
     Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", font);
-    cpuTextBox.setPosition(sf::Vector2f(container.getPosition().x + 100, container.getPosition().y + 70));
+    cpuTextBox.setPosition(vecCalc(container.getPosition(), 50, 70));
     cpuTextBox.draw(_window);
     progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
-    progressBar.setPosition(sf::Vector2f(container.getPosition().x + 100, container.getPosition().y + 100));
+    progressBar.setPosition(vecCalc(container.getPosition(), 50, 100));
     progressBar.draw(_window);
+
+    Display::Chart chart(container.getSize());
+    chart.setPosition(vecCalc(container.getPosition(), 50, 160));
+    static std::vector<float> values(10, 0);
+    if (clock.getElapsedTime().asMilliseconds() > _refreshDelay)
+    {
+        values.erase(values.begin());
+        values.push_back(_modules["cpu_usage"]->getValue("usedPercent"));
+    }
+    chart.setData({values});
+    chart.draw(_window);
+
+    // Detailed CPU Info
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", font);
+    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 50, 300));
+    cpuInfoTextBox.draw(_window);
+
+    std::string cpuInfo = "Cores: " + std::to_string(_modules["cpu_info"]->getValue("cores")) + "\n";
+    cpuInfo += "Frequency: " + std::to_string(_modules["cpu_info"]->getValue("frequency")) + " MHz\n";
+    cpuInfo += "Temperature: " + std::to_string(_modules["cpu_info"]->getValue("temperature")) + " °C\n";
+
+    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, font);
+    cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 50, 330));
+    cpuDetailsTextBox.draw(_window);
 
     // Memory Usage
     container.setPosition(sf::Vector2f(200, 0));
@@ -83,19 +107,16 @@ void Krell::SFMLDisplay::refresh()
 
     // Refresh Delay
     Display::TextBox delayTextBox(sf::Vector2f(20, 20), "Refresh Delay: " + std::to_string(_refreshDelay) + "ms", font);
-    delayTextBox.setPosition(sf::Vector2f(600, 70));
+    delayTextBox.setPosition(sf::Vector2f(700, 70));
     delayTextBox.draw(_window);
-
-    container.setPosition(sf::Vector2f(400, 300));
-    Display::Chart chart(container.getSize());
-    chart.setPosition(container.getPosition());
-    chart.setData({10, 20, 30, 40, 50, 20, 10, 2, 15, 80});
-    chart.draw(_window);
 
     Display::ClockDisplay clockDisplay(sf::Vector2f(200, 50), sf::Vector2f(1500, 0));
     clockDisplay.update();
     clockDisplay.draw(_window);
-
+    if (clock.getElapsedTime().asMilliseconds() > _refreshDelay)
+    {
+        clock.restart();
+    }
     _window.display();
 }
 
