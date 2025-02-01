@@ -8,6 +8,7 @@
 #pragma once
 
 #include <fstream>
+#include <sys/statvfs.h>
 
 #include "IModule.hpp"
 
@@ -19,6 +20,8 @@ namespace Krell {
                 ~Disk() override;
                 void refresh() override;
                 double getValue(ModuleKey) const override;
+
+                void drawModule(SFMLDisplay &disp) override { (void)disp; };
 
                 size_t getUsed() const { return _used; }
                 size_t getFree() const { return _free; }

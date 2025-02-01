@@ -5,73 +5,44 @@
 ** Disk
 */
 
-
 #include <fstream>
 #include <sstream>
 
 #include "Modules/Disk.hpp"
 
 Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(0, 0)), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
-
 {
     refresh();
 }
 
-Krell::Modules::Disk::~Disk() {}
+Krell::Modules::Disk::~Disk()
+{
+
+}
 
 void Krell::Modules::Disk::refresh()
 {
-    std::ifstream file("/proc/mounts");
-    std::string line;
-    std::string device;
-    std::string mountPoint;
-    std::string type;
-    std::string options;
-    std::string dump;
-    std::string pass;
+    struct statvfs disk_info;
+    if (statvfs("/", &disk_info) == 0) {
+        unsigned long blocksize = disk_info.f_bsize;
+        _total = blocksize * disk_info.f_blocks;
+        _free = blocksize * disk_info.f_bfree;
+        _used = _total - _free;
 
-    while (std::getline(file, line)) {
-        std::istringstream ss(line);
-        ss >> device >> mountPoint >> type >> options >> dump >> pass;
-        if (mountPoint == "/") {
-            break;
+        if (_total > 0) {
+            _usedPercent = static_cast<double>(_used * 100) / _total;
+            _freePercent = static_cast<double>(_free * 100) / _total;
+        } else {
+            _usedPercent = 0;
+            _freePercent = 0;
         }
+    } else {
+        _total = 0;
+        _free = 0;
+        _used = 0;
+        _usedPercent = 0;
+        _freePercent = 0;
     }
-    file.close();
-
-    file.open("/proc/self/mountstats");
-    if (!file.is_open()) {
-        return;
-    }
-    while (std::getline(file, line)) {
-        if (line.find(device) != std::string::npos) {
-            break;
-        }
-    }
-    while (std::getline(file, line)) {
-        if (line.find("total=") != std::string::npos) {
-            std::istringstream ss(line);
-            std::string tmp;
-            ss >> tmp >> _total;
-        }
-        if (line.find("free=") != std::string::npos) {
-            std::istringstream ss(line);
-            std::string tmp;
-            ss >> tmp >> _free;
-        }
-        if (line.find("used=") != std::string::npos) {
-            std::istringstream ss(line);
-            std::string tmp;
-            ss >> tmp >> _used;
-        }
-    }
-    file.close();
-
-    if (_total == 0) {
-        return;
-    }
-    _usedPercent = (_used * 100) / _total;
-    _freePercent = (_free * 100) / _total;
 }
 
 double Krell::Modules::Disk::getValue(ModuleKey key) const

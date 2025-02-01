@@ -12,7 +12,13 @@
 
 Krell::NCursesDisplay::NCursesDisplay() : IDisplay(), _isRunning(false)
 {
-
+    _moduleStates['1'] = {"OS Info", true};
+    _moduleStates['2'] = {"CPU Info", true};
+    _moduleStates['3'] = {"CPU Usage", true};
+    _moduleStates['4'] = {"Memory", true};
+    _moduleStates['5'] = {"Disk", true};
+    _moduleStates['6'] = {"Network", true};
+    _moduleStates['7'] = {"System Info", true};
 }
 
 Krell::NCursesDisplay::~NCursesDisplay()
@@ -60,7 +66,21 @@ void Krell::NCursesDisplay::handleEvents()
         if (ch == 'q' || ch == 'Q') {
             _isRunning = false;
         }
+        else if (_moduleStates.find(ch) != _moduleStates.end()) {
+            _moduleStates[ch].second = !_moduleStates[ch].second;
+            clear();
+        }
     }
+}
+
+bool Krell::NCursesDisplay::isModuleActive(const std::string& moduleName) const
+{
+    for (const auto& [key, value] : _moduleStates) {
+        if (value.first == moduleName) {
+            return value.second;
+        }
+    }
+    return true;
 }
 
 bool Krell::NCursesDisplay::isRunning() const
@@ -68,6 +88,20 @@ bool Krell::NCursesDisplay::isRunning() const
     return _isRunning;
 }
 
+void Krell::NCursesDisplay::drawModuleStatus(int maxY, int maxX)
+{
+    (void)maxX;
+    std::string controls = "Press 'q' to quit | Modules: ";
+    for (const auto& [key, value] : _moduleStates) {
+        controls += "'" + std::string(1, key) + "' " + value.first + (value.second ? " [ON]" : " [OFF]") + " | ";
+    }
+    controls += "Update interval: 100ms";
+    attron(A_DIM);
+    attron(COLOR_PAIR(3) | A_BOLD);
+    mvprintw(maxY - 1, 2, "%s", controls.c_str());
+    attroff(COLOR_PAIR(3) | A_BOLD);
+    attroff(A_DIM);
+}
 
 void Krell::NCursesDisplay::drawModule()
 {
@@ -75,18 +109,21 @@ void Krell::NCursesDisplay::drawModule()
     int maxY, maxX;
     getmaxyx(_window, maxY, maxX);
 
-    //box(_window, 0, 0);
-    drawDateTime(maxX);
-    drawHostInfo(maxX);
-    drawCpuInfo(maxX);
-    drawCpuUsage(maxX);
-    drawMemoryInfo(maxX);
-    drawOsInfo(maxX);
-    drawNetworkInfo(maxX);
+    if (isModuleActive("System Info"))
+        drawHeader(maxX);
+    if (isModuleActive("OS Info"))
+        drawOsInfo(maxX);
+    if (isModuleActive("CPU Info"))
+        drawCpuInfo(maxX);
+    if (isModuleActive("CPU Usage"))
+        drawCpuUsage(maxX);
+    if (isModuleActive("Memory"))
+        drawMemoryInfo(maxX);
+    if (isModuleActive("Disk"))
+        drawDiskInfo(maxX);
+    if (isModuleActive("Network"))
+        drawNetworkInfo(maxX);
 
-    attron(A_DIM);
-    attron(COLOR_PAIR(3) | A_BOLD);
-    mvprintw(maxY - 1, 2, "Press 'q' to quit | Update interval: 100ms");
-    attroff(COLOR_PAIR(3) | A_BOLD);
-    attroff(A_DIM);
+    drawHostInfo(maxX);
+    drawModuleStatus(maxY, maxX);
 }
