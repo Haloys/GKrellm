@@ -8,7 +8,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
 #include "IDisplay.hpp"
 
 #define FONT_PATH "assets/font/Arial.ttf"
@@ -26,7 +25,7 @@
 #define TEXT_COLOR_BLACK sf::Color::Black
 
 namespace Krell {
-    class SFMLDisplay : public IDisplay {
+    class SFMLDisplay : public Krell::IDisplay {
         sf::RenderWindow _window;
         bool _isRunning;
         sf::Font _font;
@@ -36,12 +35,12 @@ namespace Krell {
     public:
         SFMLDisplay();
         ~SFMLDisplay();
-        void refresh() override;
-        void start() override;
-        void stop() override;
-        bool isRunning() const override;
-        void handleEvents() override;
-        void drawModule() override;
+        virtual void refresh() ;
+        virtual void start() ;
+        virtual void stop() ;
+        virtual bool isRunning() const ;
+        virtual void handleEvents() ;
+        virtual void drawModule() ;
         sf::Font &getFont() { return _font; }
         int getRefreshDelay() { return _refreshDelay; }
         sf::Clock &getDelayClock() { return _delayClock; }

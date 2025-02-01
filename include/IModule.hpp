@@ -9,13 +9,8 @@
 
 #include <string>
 
-#include "SFMLDisplay.hpp"
-
 namespace Krell {
     class SFMLDisplay;
-}
-
-namespace Krell {
     class IModule {
         public:
             enum ModuleKey {

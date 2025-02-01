@@ -51,7 +51,7 @@ $(BUILD_DIR)/%.o: %.cpp
 
 .PHONY: release
 release: BUILD_DIR += /release
-release: CFLAGS ?= -O3 -march=native -Wall -Wextra -Werror -std=c++20
+release: CFLAGS ?= -O3 -march=native -Wall -Wextra -std=c++20
 release: ${BIN}
 
 

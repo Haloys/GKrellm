@@ -11,7 +11,6 @@
 #include <map>
 
 #include "IModule.hpp"
-#include "SFMLDisplay.hpp"
 
 namespace Krell {
     class SFMLDisplay;

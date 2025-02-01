@@ -9,12 +9,8 @@
 
 #include <string>
 
-#include "SFMLDisplay.hpp"
 #include "IModule.hpp"
 
-namespace Krell {
-    class SFMLDisplay;
-}
 
 namespace Krell {
     namespace Modules {
@@ -31,7 +27,8 @@ namespace Krell {
                 void refresh() override;
                 double getValue(ModuleKey) const override;
 
-                void drawModule(SFMLDisplay &disp) override;
+                virtual void drawModule(SFMLDisplay &disp) override;
+
             private:
                 time_t _lastRefresh;
 
