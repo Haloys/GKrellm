@@ -80,11 +80,13 @@ void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
     cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
     cpuInfoTextBox.draw(disp.getWindow());
 
-    std::string cpuInfo = "Cores: " + std::to_string(int(getValue(IModule::CORES))) + "\n";
-    cpuInfo += "Frequency: " + std::to_string(int(getValue(IModule::MGHZ))) + " MHz\n";
-    // cpuInfo += "Temperature: " + std::to_string(int(getValue(IModule::TEMPERATURE))) + " °C\n";
+    std::string modelName = _cpuInfo["model name"] + "\n";
+    modelName += "Cores: " + std::to_string(int(getValue(IModule::CORES))) + "\n";
+    modelName += "Threads: " + std::to_string(int(getValue(IModule::THREADS))) + "\n";
+    modelName += "Frequency: " + std::to_string(int(getValue(IModule::MGHZ))) + " MHz\n";
+    // modelName += "Temperature: " + std::to_string(int(getValue(IModule::TEMPERATURE))) + "C\n";
 
-    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, disp.getFont());
-    cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 20, 60));
-    cpuDetailsTextBox.draw(disp.getWindow());
+    Display::TextBox modelTextBox(sf::Vector2f(20, 20), modelName, disp.getFont());
+    modelTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));
+    modelTextBox.draw(disp.getWindow());
 }
