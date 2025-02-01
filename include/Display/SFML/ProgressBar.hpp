@@ -17,7 +17,7 @@ namespace Display
     public:
         ProgressBar(sf::Vector2f size);
         void setPosition(sf::Vector2f position);
-        void setProgress(float percentage);
+        void setProgress(double percentage);
         void draw(sf::RenderWindow &window);
 
     private:

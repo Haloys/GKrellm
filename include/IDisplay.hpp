@@ -19,18 +19,27 @@ namespace Krell {
     class IDisplay {
         public:
             IDisplay() {
-                _modules["cpu_usage"] = Krell::Modules::CpuUsage();
-                _modules["mem"] = Krell::Modules::MemoryInfo();
-                _modules["cpu_info"] = Krell::Modules::CpuInfo();
+                _modules["cpu_usage"] = new Krell::Modules::CpuUsage();
+                _modules["mem"] = new Krell::Modules::MemoryInfo();
+                _modules["cpu_info"] = new Krell::Modules::CpuInfo();
             };
-            virtual ~IDisplay() = default;
+            void refresh_all() {
+                for (auto& [key, value] : _modules) {
+                    value->refresh();
+                }
+            }
+            virtual ~IDisplay() {
+                for (auto& [key, value] : _modules) {
+                    delete value;
+                }
+            }
             virtual void refresh() = 0;
             virtual void start() = 0;
             virtual void stop() = 0;
             virtual bool isRunning() const = 0;
             virtual void handleEvents() = 0;
-        protected:
-            std::map<std::string, IModule> _modules;
             virtual void drawModule(const IModule& module) = 0;
+        protected:
+            std::map<std::string, IModule *> _modules;
         };
 }

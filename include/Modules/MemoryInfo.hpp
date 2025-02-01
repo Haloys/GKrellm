@@ -48,6 +48,8 @@ namespace Krell {
                 size_t vmallocUsedPercentage() const { return (VmallocUsed() * 100) / VmallocTotal(); }
 
 
+                double getValue(const std::string& key) const override { return 0; };
+
             private:
                 std::map<std::string, size_t> _memoryInfo;
         };

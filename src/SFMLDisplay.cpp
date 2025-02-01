@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <iostream>
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"
@@ -14,10 +15,9 @@
 #include "Display/SFML/Chart.hpp"
 #include "Display/SFML/ClockDisplay.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay()
-{
+using std::endl;
 
-}
+Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay() {}
 
 Krell::SFMLDisplay::~SFMLDisplay()
 {
@@ -37,11 +37,9 @@ void Krell::SFMLDisplay::refresh()
 {
     _window.clear(BG_COLOR);
 
-    for (const auto& [name, module] : _modules) {
-        module.refresh();
-    }
-
     Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
+
+    refresh_all();
 
     Display::Box box(container.getSize());
     box.setPosition(container.getPosition());
@@ -66,7 +64,7 @@ void Krell::SFMLDisplay::refresh()
     container.setPosition(sf::Vector2f(100, 300));
     Display::ProgressBar progressBar(container.getSize());
     progressBar.setPosition(container.getPosition());
-    progressBar.setProgress(50);
+    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
     progressBar.draw(_window);
 
     container.setPosition(sf::Vector2f(420, 300));

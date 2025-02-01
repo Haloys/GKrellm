@@ -18,6 +18,7 @@ namespace Krell {
                 CpuInfo();
                 ~CpuInfo();
                 void refresh() override;
+                double getValue(const std::string& key) const override { return 0; };
                 std::string ModelName() const { return _cpuInfo.at("model name"); }
                 std::string VendorId() const { return _cpuInfo.at("vendor_id"); }
                 std::string CpuFamily() const { return _cpuInfo.at("cpu family"); }
