@@ -144,4 +144,15 @@ void Krell::Modules::Network::drawModule(SFMLDisplay &disp)
     progressBar.setProgress(getValue(IModule::PACKETS_RECEIVED), true);
     progressBar.setPosition(vecCalc(container.getPosition(), 20, 360));
     progressBar.draw(disp.getWindow());
+
+    Display::Chart chart(sf::Vector2f(360, 150));
+    chart.setPosition(vecCalc(container.getPosition(), 20, 420));
+    static std::vector<float> values(50, 0);
+    if (disp.getDelayClock().getElapsedTime().asMilliseconds() > disp.getRefreshDelay())
+    {
+        values.erase(values.begin());
+        values.push_back(disp.getModule("network")->getValue(IModule::BYTES_SENT));
+    }
+    chart.setData({values}, true);
+    chart.draw(disp.getWindow());
 }
