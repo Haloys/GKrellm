@@ -14,16 +14,16 @@
 
 namespace Display {
     class ClockDisplay {
-    public:
-        ClockDisplay(const sf::Vector2f &size, const sf::Vector2f &position);
+        public:
+            ClockDisplay(const sf::Vector2f &size, const sf::Vector2f &position);
 
-        void update();
-        void draw(sf::RenderWindow &window);
+            void update();
+            void draw(sf::RenderWindow &window);
 
-    private:
-        Display::Box _box;
-        sf::Text _text;
-        sf::Font _font;
-        sf::Vector2f _position;
+        private:
+            Display::Box _box;
+            sf::Text _text;
+            sf::Font _font;
+            sf::Vector2f _position;
     };
 }

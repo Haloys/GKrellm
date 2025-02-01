@@ -23,6 +23,7 @@ Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(400, 400))
 
 Krell::Modules::MemoryInfo::~MemoryInfo()
 {
+
 }
 
 void Krell::Modules::MemoryInfo::refresh()

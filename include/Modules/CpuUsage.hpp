@@ -22,8 +22,10 @@ namespace Krell {
 
                 double usedPercent = 0;
                 double freePercent = 0;
+
                 CpuUsage();
                 ~CpuUsage();
+
                 void refresh() override;
                 double getValue(ModuleKey) const override;
 

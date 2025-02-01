@@ -22,8 +22,10 @@ namespace Krell {
             public:
                 CpuInfo();
                 ~CpuInfo();
+
                 void refresh() override;
                 double getValue(ModuleKey key) const override;
+
                 std::string ModelName() const { return _cpuInfo.at("model name"); }
                 std::string VendorId() const { return _cpuInfo.at("vendor_id"); }
                 std::string CpuFamily() const { return _cpuInfo.at("cpu family"); }
@@ -31,6 +33,7 @@ namespace Krell {
                 size_t CpuThreads() const { return std::stoul(_cpuInfo.at("siblings")); }
                 size_t CpuMhz() const { return std::stoul(_cpuInfo.at("cpu MHz")); }
                 std::string CacheSize() const { return _cpuInfo.at("cache size"); }
+
                 void drawModule(SFMLDisplay &disp) override;
 
             private:

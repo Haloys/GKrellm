@@ -23,6 +23,7 @@ namespace Krell {
 
                 std::string getCurrentDateTime() const { return _currentDateTime; }
                 size_t getDateLength() const { return _currentDateTime.length(); }
+
                 virtual void drawModule(SFMLDisplay &disp) override {(void)disp;};
 
             private:

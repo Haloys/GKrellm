@@ -1,13 +1,14 @@
 /*
 ** EPITECH PROJECT, 2025
-** /home/vj/coding/t2r3/include/Modules/Network
+** Include/Modules/Network
 ** File description:
-** network Module
+** Network
 */
 
 #pragma once
 
 #include <cstddef>
+
 #include "IModule.hpp"
 
 namespace Krell {

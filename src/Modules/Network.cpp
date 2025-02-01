@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /home/vj/coding/t2r3/src/Modules/Network
+** src/Modules/Network
 ** File description:
-** ewfou
+** Network
 */
 
 
@@ -22,19 +22,22 @@ Krell::Modules::Network::Network() :
     IModule(sf::Vector2f(400, 430)),
     _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
+
 }
 
-Krell::Modules::Network::~Network() {}
+Krell::Modules::Network::~Network()
+{
 
-void Krell::Modules::Network::refresh() {
+}
+
+void Krell::Modules::Network::refresh()
+{
     _bytesSent = 0;
     _bytesReceived = 0;
     _packetsSent = 0;
     _packetsReceived = 0;
     _up = false;
 
-
-    //check if network is up by checking if every directory in /sys/class/net/ has an operstate file
     auto dir = opendir("/sys/class/net/");
     if (!dir) {
         std::cerr << "Failed to open /sys/class/net/" << std::endl;
@@ -58,7 +61,7 @@ void Krell::Modules::Network::refresh() {
             }
         }
     }
-
+    closedir(dir);
     std::ifstream file("/proc/net/dev");
     if (!file.is_open()) {
         std::cerr << "failed to get network info" << std::endl;
@@ -68,23 +71,29 @@ void Krell::Modules::Network::refresh() {
     std::string line;
     std::getline(file, line);
     std::getline(file, line);
+
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string iface;
         ss >> iface;
+
+        if (iface == "lo:") continue;
         if (iface.back() == ':') {
             iface.pop_back();
         }
-        size_t bytesSent;
-        size_t packetsSent;
-        size_t bytesReceived;
-        size_t packetsReceived;
-        ss >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> bytesSent >> packetsSent >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> bytesReceived >> packetsReceived;
-        _bytesSent += bytesSent;
-        _bytesReceived += bytesReceived;
-        _packetsSent += packetsSent;
-        _packetsReceived += packetsReceived;
+        // Format de /proc/net/dev:
+        size_t bytes, packets, errs, drop, fifo, frame, compressed, multicast;
+        ss >> bytes;
+        _bytesReceived += bytes;
+        ss >> packets;
+        _packetsReceived += packets;
+        ss >> errs >> drop >> fifo >> frame >> compressed >> multicast;
+        ss >> bytes;
+        _bytesSent += bytes;
+        ss >> packets;
+        _packetsSent += packets;
     }
+    file.close();
 }
 
 double Krell::Modules::Network::getValue(ModuleKey key) const {
