@@ -14,6 +14,8 @@
 #include "Modules/CpuUsage.hpp"
 #include "Modules/CpuInfo.hpp"
 #include "Modules/MemoryInfo.hpp"
+#include "Modules/DateTimeInfo.hpp"
+#include "Modules/HostInfo.hpp"
 
 namespace Krell {
     class IDisplay {
@@ -22,6 +24,8 @@ namespace Krell {
                 _modules["cpu_usage"] = std::make_unique<Modules::CpuUsage>();
                 _modules["mem"] = std::make_unique<Modules::MemoryInfo>();
                 _modules["cpu_info"] = std::make_unique<Modules::CpuInfo>();
+                _modules["datetime"] = std::make_unique<Modules::DateTimeInfo>();
+                _modules["host"] = std::make_unique<Modules::HostInfo>();
             };
             virtual ~IDisplay() = default;
             void refresh_all() {
