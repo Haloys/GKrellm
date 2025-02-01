@@ -11,16 +11,15 @@
 
 #include "SFMLDisplay.hpp"
 
-namespace Display
-{
-    class Container
-    {
+namespace Display {
+    class Container {
     public:
         Container(const sf::Vector2f &position, const sf::Vector2f &size)
             : _position(position), _size(size)
         {
-            _rectangle.setFillColor(BG_COLOR_TEST);
+            _rectangle.setPosition(position);
             _rectangle.setSize(size);
+            _rectangle.setFillColor(BG_COLOR_TEST);
         }
 
         void setPosition(const sf::Vector2f &position);

@@ -10,10 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include "Display/SFML/Box.hpp"
 
-namespace Display
-{
-    class ProgressBar
-    {
+namespace Display {
+    class ProgressBar {
     public:
         ProgressBar(sf::Vector2f size, const sf::Font &font);
         void setPosition(sf::Vector2f position);

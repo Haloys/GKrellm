@@ -12,17 +12,17 @@
 
 namespace Display {
     class Box {
-        public:
-            Box(sf::Vector2f size);
-            ~Box() = default;
+    public:
+        Box(sf::Vector2f size);
+        ~Box() = default;
 
-            void setPosition(sf::Vector2f position);
+        void setPosition(sf::Vector2f position);
 
-            void draw(sf::RenderWindow &window);
+        void draw(sf::RenderWindow &window);
 
-            sf::RectangleShape getRectangle() { return _rectangle; }
+        sf::RectangleShape getRectangle() { return _rectangle; }
 
-        private:
-            sf::RectangleShape _rectangle;
+    private:
+        sf::RectangleShape _rectangle;
     };
 }

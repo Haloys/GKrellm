@@ -10,6 +10,11 @@
 #include <sstream>
 
 #include "Modules/MemoryInfo.hpp"
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/Chart.hpp"
+#include "Utils.hpp"
 
 Krell::Modules::MemoryInfo::MemoryInfo()
 {
@@ -69,5 +74,21 @@ double Krell::Modules::MemoryInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::MemoryInfo::drawModule(SFMLDisplay &disp)
 {
+    Display::Container container(sf::Vector2f(500, 50), sf::Vector2f(400, 400));
+    Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
+    container.draw(disp.getWindow());
+
+    Display::TextBox ramTextBox(sf::Vector2f(20, 20), "RAM Usage", disp.getFont());
+    ramTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    ramTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::USEDPERCENT), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
+    progressBar.draw(disp.getWindow());
+    Display::TextBox ramSwapTextBox(sf::Vector2f(20, 20), "Swap Usage", disp.getFont());
+    ramSwapTextBox.setPosition(vecCalc(container.getPosition(), 20, 120));
+    ramSwapTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::USEDPERCENT), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 160));
+    progressBar.draw(disp.getWindow());
 }

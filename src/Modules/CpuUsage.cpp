@@ -78,12 +78,10 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
 
 void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+    Display::Container container(sf::Vector2f(50, 50), sf::Vector2f(400, 400));
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     // CPU Usage
-    container.setPosition(sf::Vector2f(50, 50));
-    container.setSize(sf::Vector2f(400, 400));
     container.draw(disp.getWindow());
     Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", disp.getFont());
     cpuTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
