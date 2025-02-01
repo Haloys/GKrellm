@@ -10,7 +10,13 @@
 #include <sstream>
 #include <iostream>
 #include <dirent.h>
+
 #include "Modules/Network.hpp"
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/Chart.hpp"
+#include "Utils.hpp"
 
 Krell::Modules::Network::Network() : _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
@@ -91,4 +97,40 @@ double Krell::Modules::Network::getValue(ModuleKey key) const {
     if (key == UP)
         return _up ? 1.0 : 0.0;
     return 0.0;
+}
+
+void Krell::Modules::Network::drawModule(SFMLDisplay &disp)
+{
+    Display::Container container(sf::Vector2f(950, 50), sf::Vector2f(400, 430));
+    Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
+
+    container.draw(disp.getWindow());
+
+    Display::TextBox bytesSentTextBox(sf::Vector2f(20, 20), "Bytes Sent", disp.getFont());
+    bytesSentTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    bytesSentTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::BYTES_SENT), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
+    progressBar.draw(disp.getWindow());
+
+    Display::TextBox bytesReceivedTextBox(sf::Vector2f(20, 20), "Bytes Received", disp.getFont());
+    bytesReceivedTextBox.setPosition(vecCalc(container.getPosition(), 20, 120));
+    bytesReceivedTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::BYTES_RECEIVED), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 160));
+    progressBar.draw(disp.getWindow());
+
+    Display::TextBox packetsSentTextBox(sf::Vector2f(20, 20), "Packets Sent", disp.getFont());
+    packetsSentTextBox.setPosition(vecCalc(container.getPosition(), 20, 220));
+    packetsSentTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::PACKETS_SENT), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 260));
+    progressBar.draw(disp.getWindow());
+
+    Display::TextBox packetsReceivedTextBox(sf::Vector2f(20, 20), "Packets Received", disp.getFont());
+    packetsReceivedTextBox.setPosition(vecCalc(container.getPosition(), 20, 320));
+    packetsReceivedTextBox.draw(disp.getWindow());
+    progressBar.setProgress(getValue(IModule::PACKETS_RECEIVED), true);
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 360));
+    progressBar.draw(disp.getWindow());
 }

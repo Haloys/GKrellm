@@ -26,6 +26,8 @@ namespace Krell {
 
                 bool up() const { return _up; }
 
+                void drawModule(SFMLDisplay &disp) override;
+
             private:
                 size_t _bytesSent;
                 size_t _bytesReceived;
