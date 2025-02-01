@@ -25,6 +25,7 @@ Krell::Modules::CpuUsage::CpuUsage()
 
 Krell::Modules::CpuUsage::~CpuUsage()
 {
+
 }
 
 void Krell::Modules::CpuUsage::refresh()

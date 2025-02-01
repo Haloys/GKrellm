@@ -81,6 +81,7 @@ void Krell::NCursesDisplay::drawModule()
     drawCpuInfo(maxX);
     drawCpuUsage(maxX);
     drawMemoryInfo(maxX);
+    drawOsInfo(maxX);
 
     attron(A_DIM);
     attron(COLOR_PAIR(3) | A_BOLD);

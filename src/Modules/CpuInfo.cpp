@@ -20,6 +20,7 @@ Krell::Modules::CpuInfo::CpuInfo()
 
 Krell::Modules::CpuInfo::~CpuInfo()
 {
+
 }
 
 void Krell::Modules::CpuInfo::refresh()

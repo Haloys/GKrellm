@@ -20,6 +20,7 @@ void Krell::Modules::DateTimeInfo::refresh()
     time_t now = time(nullptr);
     struct tm *timeinfo = localtime(&now);
     char buffer[80];
+
     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", timeinfo);
     _currentDateTime = buffer;
 }
