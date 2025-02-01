@@ -29,6 +29,7 @@ namespace Krell {
         bool _isRunning;
         sf::Font _font;
         int _refreshDelay;
+        sf::Clock _delayClock;
 
     public:
         SFMLDisplay();
