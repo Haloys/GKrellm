@@ -57,7 +57,7 @@ void Krell::SFMLDisplay::refresh()
 
     Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(200, 100));
     Display::Box box(container.getSize());
-    Display::ProgressBar progressBar(sf::Vector2f(200, 50));
+    Display::ProgressBar progressBar(sf::Vector2f(200, 50), _font);
 
     // CPU Usage
     Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", _font);
