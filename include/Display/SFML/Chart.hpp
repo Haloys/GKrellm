@@ -17,7 +17,7 @@ namespace Display
     public:
         Chart(sf::Vector2f size);
         void setPosition(sf::Vector2f position);
-        void setData(const std::vector<float>& data);
+        void setData(const std::vector<float>& data, bool difColor);
         void draw(sf::RenderWindow &window);
 
     private:
