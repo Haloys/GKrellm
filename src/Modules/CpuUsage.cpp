@@ -11,6 +11,7 @@
 #include <map>
 
 #include "Modules/CpuUsage.hpp"
+#include "IModule.hpp"
 
 Krell::Modules::CpuUsage::CpuUsage()
 {
@@ -50,17 +51,17 @@ void Krell::Modules::CpuUsage::refresh()
     free = _free;
 }
 
-double Krell::Modules::CpuUsage::getValue(const std::string& key) const
+double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
 {
-    if (key == "total")
+    if (key == TOTAL)
         return static_cast<double>(total);
-    if (key == "used")
+    if (key == USED)
         return static_cast<double>(used);
-    if (key == "free")
+    if (key == FREE)
         return static_cast<double>(free);
-    if (key == "usedPercent")
+    if (key == USEDPERCENT)
         return static_cast<double>(usedPercent);
-    if (key == "freePercent")
+    if (key == FREEPERCENT)
         return static_cast<double>(freePercent);
     return 0.0;
 }

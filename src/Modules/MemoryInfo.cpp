@@ -38,28 +38,28 @@ void Krell::Modules::MemoryInfo::refresh()
     }
 }
 
-double Krell::Modules::MemoryInfo::getValue(const std::string& key) const
+double Krell::Modules::MemoryInfo::getValue(ModuleKey key) const
 {
     try {
-        if (key == "total")
+        if (key == TOTAL)
             return static_cast<double>(Total());
-        if (key == "used")
+        if (key == USED)
             return static_cast<double>(Used());
-        if (key == "free")
+        if (key == FREE)
             return static_cast<double>(Free());
-        if (key == "usedPercent")
+        if (key == USEDPERCENT)
             return static_cast<double>(usePercentage());
-        if (key == "freePercent")
+        if (key == FREEPERCENT)
             return static_cast<double>(freePercentage());
-        if (key == "available")
+        if (key == AVAILABLE)
             return static_cast<double>(Available());
-        if (key == "availablePercent")
+        if (key == AVAILABLEPERCENT)
             return static_cast<double>(availablePercentage());
-        if (key == "swap_total")
+        if (key == SWAP_TOTAL)
             return static_cast<double>(SwapTotal());
-        if (key == "swap_used")
+        if (key == SWAP_USED)
             return static_cast<double>(SwapUsed());
-        if (key == "swap_percent")
+        if (key == SWAP_PERCENT)
             return static_cast<double>(swapUsePercentage());
         return 0.0;
     } catch (const std::exception&) {

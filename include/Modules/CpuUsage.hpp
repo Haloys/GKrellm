@@ -24,7 +24,7 @@ namespace Krell {
                 CpuUsage();
                 ~CpuUsage();
                 void refresh() override;
-                double getValue(const std::string& key) const;
+                double getValue(ModuleKey) const override;
             private:
                 time_t _lastRefresh;
 

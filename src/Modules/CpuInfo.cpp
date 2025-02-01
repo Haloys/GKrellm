@@ -11,6 +11,7 @@
 #include <map>
 
 #include "Modules/CpuInfo.hpp"
+#include "IModule.hpp"
 
 Krell::Modules::CpuInfo::CpuInfo()
 {
@@ -44,13 +45,13 @@ void Krell::Modules::CpuInfo::refresh()
     }
 }
 
-double Krell::Modules::CpuInfo::getValue(const std::string& key) const
+double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
 {
-    if (key == "cores")
+    if (key == CORES)
         return static_cast<double>(CpuCores());
-    if (key == "threads")
+    if (key == THREADS)
         return static_cast<double>(CpuThreads());
-    if (key == "mhz")
+    if (key == MGHZ)
         return static_cast<double>(CpuMhz());
     return 0.0;
 }

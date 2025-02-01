@@ -20,7 +20,7 @@ namespace Krell {
                 MemoryInfo();
                 ~MemoryInfo() override;
                 void refresh() override;
-                double getValue(const std::string& key) const override;
+                double getValue(ModuleKey) const override;
 
                 // note that the values are in KB
                 size_t Total() const { return _memoryInfo.at("MemTotal:"); }
