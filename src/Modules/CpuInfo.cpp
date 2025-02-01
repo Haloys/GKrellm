@@ -18,7 +18,7 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(0, 0))
+Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(400, 200))
 {
     refresh();
 }
@@ -71,7 +71,7 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 370), sf::Vector2f(400, 200));
+    Display::Container container(sf::Vector2f(50, 370), size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());
