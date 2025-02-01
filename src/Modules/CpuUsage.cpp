@@ -5,6 +5,7 @@
 ** CpuUsage
 */
 
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -43,15 +44,17 @@ void Krell::Modules::CpuUsage::refresh()
     ss >> _user >> _nice >> _system >> _idle >> _iowait >> _irq >> _softirq;
 
     _total = _user + _nice + _system + _idle + _iowait + _irq + _softirq;
-    _used = _total - (_idle + _iowait);
+    _used = _user + _nice + _system + _irq + _softirq;
     _free = _idle + _iowait;
+
+
 
     if (total - _total == 0) {
         return;
     }
-    auto usd = _used - used;
-    auto fed = _free - free;
-    usedPercent = 100 * std::abs((usd  - fed) / usd);
+    double usd = _used - used;
+
+    usedPercent = 100 * usd / (_total - total);
     freePercent = 100 - usedPercent;
 
     total = _total;
