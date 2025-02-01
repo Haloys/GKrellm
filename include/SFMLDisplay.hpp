@@ -22,6 +22,7 @@
 #define BAR_COLOR_ORANGE sf::Color(250, 150, 50)
 #define BAR_COLOR_RED sf::Color(250, 100, 50)
 #define BAR_COLOR_BLUE sf::Color(50, 100, 250)
+#define BG_COLOR_TEST sf::Color(43, 42, 42)
 #define TEXT_COLOR_WHITE sf::Color::White
 #define TEXT_COLOR_BLACK sf::Color::Black
 
