@@ -10,7 +10,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "IDisplay.hpp"
-#include "IModule.hpp"
 
 #define FONT_PATH "assets/font/Arial.ttf"
 

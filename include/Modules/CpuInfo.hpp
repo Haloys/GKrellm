@@ -11,6 +11,11 @@
 #include <map>
 
 #include "IModule.hpp"
+#include "SFMLDisplay.hpp"
+
+namespace Krell {
+    class SFMLDisplay;
+}
 
 namespace Krell {
     namespace Modules {
@@ -27,6 +32,8 @@ namespace Krell {
                 size_t CpuThreads() const { return std::stoul(_cpuInfo.at("siblings")); }
                 size_t CpuMhz() const { return std::stoul(_cpuInfo.at("cpu MHz")); }
                 std::string CacheSize() const { return _cpuInfo.at("cache size"); }
+                void drawModule(SFMLDisplay &disp) override;
+
             private:
                 std::map<std::string, std::string> _cpuInfo;
         };

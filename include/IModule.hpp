@@ -9,6 +9,12 @@
 
 #include <string>
 
+#include "SFMLDisplay.hpp"
+
+namespace Krell {
+    class SFMLDisplay;
+}
+
 namespace Krell {
     class IModule {
         public:
@@ -30,5 +36,6 @@ namespace Krell {
             virtual ~IModule() = default;
             virtual void refresh() = 0;
             virtual double getValue(ModuleKey key) const = 0;
+            virtual void drawModule(SFMLDisplay &disp) = 0;
     };
 }

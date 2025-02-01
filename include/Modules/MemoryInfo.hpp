@@ -11,7 +11,12 @@
 #include <map>
 #include <string>
 
+#include "SFMLDisplay.hpp"
 #include "IModule.hpp"
+
+namespace Krell {
+    class SFMLDisplay;
+}
 
 namespace Krell {
     namespace Modules {
@@ -48,6 +53,7 @@ namespace Krell {
                 size_t vmallocUsePercentage() const { return (VmallocUsed() * 100) / VmallocTotal(); }
                 size_t vmallocChunkPercentage() const { return (VmallocChunk() * 100) / VmallocTotal(); }
                 size_t vmallocUsedPercentage() const { return (VmallocUsed() * 100) / VmallocTotal(); }
+                void drawModule(SFMLDisplay &disp) override;
 
             private:
                 std::map<std::string, size_t> _memoryInfo;
