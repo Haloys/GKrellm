@@ -88,7 +88,7 @@ void Krell::Modules::MemoryInfo::drawModule(SFMLDisplay &disp)
     Display::TextBox ramSwapTextBox(sf::Vector2f(20, 20), "Swap Usage", disp.getFont());
     ramSwapTextBox.setPosition(vecCalc(container.getPosition(), 20, 120));
     ramSwapTextBox.draw(disp.getWindow());
-    progressBar.setProgress(getValue(IModule::USEDPERCENT), true);
+    progressBar.setProgress(getValue(IModule::SWAP_PERCENT), true);
     progressBar.setPosition(vecCalc(container.getPosition(), 20, 160));
     progressBar.draw(disp.getWindow());
 }
