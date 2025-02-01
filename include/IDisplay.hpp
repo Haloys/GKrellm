@@ -18,6 +18,15 @@
 #include "Modules/HostInfo.hpp"
 
 namespace Krell {
+    class IModule;
+    namespace Modules {
+        class CpuUsage;
+        class CpuInfo;
+        class MemoryInfo;
+    }
+}
+
+namespace Krell {
     class IDisplay {
         public:
             IDisplay() {

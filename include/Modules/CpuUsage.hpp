@@ -11,6 +11,7 @@
 
 #include "IModule.hpp"
 
+
 namespace Krell {
     namespace Modules {
         class CpuUsage: public IModule {
@@ -25,6 +26,9 @@ namespace Krell {
                 ~CpuUsage();
                 void refresh() override;
                 double getValue(ModuleKey) const override;
+
+                virtual void drawModule(SFMLDisplay &disp) override;
+
             private:
                 time_t _lastRefresh;
 

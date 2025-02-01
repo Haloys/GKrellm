@@ -66,3 +66,8 @@ double Krell::Modules::MemoryInfo::getValue(ModuleKey key) const
         return 0.0;
     }
 }
+
+void Krell::Modules::MemoryInfo::drawModule(SFMLDisplay &disp)
+{
+
+}

@@ -10,6 +10,7 @@
 #include <string>
 
 namespace Krell {
+    class SFMLDisplay;
     class IModule {
         public:
             enum ModuleKey {
@@ -30,5 +31,6 @@ namespace Krell {
             virtual ~IModule() = default;
             virtual void refresh() = 0;
             virtual double getValue(ModuleKey key) const = 0;
+            virtual void drawModule(SFMLDisplay &disp) = 0;
     };
 }
