@@ -9,7 +9,7 @@
 #include <sstream>
 #include "Modules/OsInfo.hpp"
 
-Krell::Modules::OsInfo::OsInfo()
+Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(0, 0))
 {
     refresh();
 }

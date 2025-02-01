@@ -18,7 +18,7 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuInfo::CpuInfo()
+Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(0, 0))
 {
     refresh();
 }

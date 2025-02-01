@@ -7,7 +7,9 @@
 
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 namespace Krell {
     class SFMLDisplay;
@@ -37,8 +39,10 @@ namespace Krell {
             virtual ~IModule() = default;
             virtual void refresh() = 0;
             virtual double getValue(ModuleKey key) const = 0;
-            double height;
-            double width;
+
+            IModule(sf::Vector2f s) : size(s) {}
+            sf::Vector2f size;
+
             void disable() {
                 _enabled = false;
             }

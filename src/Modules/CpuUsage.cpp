@@ -19,7 +19,7 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuUsage::CpuUsage()
+Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(0, 0))
 {
     refresh();
 }

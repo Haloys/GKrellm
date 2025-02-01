@@ -10,7 +10,7 @@
 
 #include "Modules/DateTimeInfo.hpp"
 
-Krell::Modules::DateTimeInfo::DateTimeInfo()
+Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(0, 0))
 {
     refresh();
 }
