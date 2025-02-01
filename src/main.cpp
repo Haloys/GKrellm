@@ -36,7 +36,7 @@ static void run(Krell::IDisplay& display)
         cpuUsage.refresh();
         cpuInfo.refresh();
         display.drawModule(cpuUsage);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
         display.refresh();
     }
     display.stop();
