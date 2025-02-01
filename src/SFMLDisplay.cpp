@@ -18,14 +18,14 @@
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/TextBox.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false)
+Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false), _refreshDelay(100)
 {
-
 }
 
 Krell::SFMLDisplay::~SFMLDisplay()
 {
-    if (_isRunning) {
+    if (_isRunning)
+    {
         stop();
     }
 }
@@ -39,20 +39,27 @@ void Krell::SFMLDisplay::start()
 
 void Krell::SFMLDisplay::refresh()
 {
+    static sf::Clock clock;
+
     _window.clear(BG_COLOR);
 
-    for (const auto& [name, module] : _modules) {
-        module->refresh();
+    if (clock.getElapsedTime().asMilliseconds() > _refreshDelay)
+    {
+        clock.restart();
+        for (const auto &[name, module] : _modules)
+        {
+            module->refresh();
+        }
+        refresh_all();
     }
-
-    refresh_all();
 
     Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(200, 100));
     Display::Box box(container.getSize());
     Display::ProgressBar progressBar(sf::Vector2f(200, 50));
 
     sf::Font font;
-    if (!font.loadFromFile(FONT_PATH)) {
+    if (!font.loadFromFile(FONT_PATH))
+    {
         std::cerr << "Error loading font\n";
     }
 
@@ -74,6 +81,10 @@ void Krell::SFMLDisplay::refresh()
     progressBar.setPosition(sf::Vector2f(400, 100));
     progressBar.draw(_window);
 
+    // Refresh Delay
+    Display::TextBox delayTextBox(sf::Vector2f(20, 20), "Refresh Delay: " + std::to_string(_refreshDelay) + "ms", font);
+    delayTextBox.setPosition(sf::Vector2f(600, 70));
+    delayTextBox.draw(_window);
 
     container.setPosition(sf::Vector2f(400, 300));
     Display::Chart chart(container.getSize());
@@ -97,9 +108,22 @@ void Krell::SFMLDisplay::stop()
 void Krell::SFMLDisplay::handleEvents()
 {
     sf::Event event;
-    while (_window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+    while (_window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
             _isRunning = false;
+        }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            if (event.key.code == sf::Keyboard::Up)
+            {
+                _refreshDelay = std::min(10000, _refreshDelay + 100);
+            }
+            else if (event.key.code == sf::Keyboard::Down)
+            {
+                _refreshDelay = std::max(100, _refreshDelay - 100);
+            }
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Krell {
         sf::RenderWindow _window;
         bool _isRunning;
         sf::Font _font;
+        int _refreshDelay;
 
     public:
         SFMLDisplay();
