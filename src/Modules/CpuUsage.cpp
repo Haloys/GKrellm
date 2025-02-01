@@ -43,14 +43,16 @@ void Krell::Modules::CpuUsage::refresh()
     ss >> _user >> _nice >> _system >> _idle >> _iowait >> _irq >> _softirq;
 
     _total = _user + _nice + _system + _idle + _iowait + _irq + _softirq;
-    _used = _total - _idle;
-    _free = _idle;
+    _used = _total - (_idle + _iowait);
+    _free = _idle + _iowait;
 
     if (total - _total == 0) {
         return;
     }
-    usedPercent = 100 * (_used - used) / (_total - total);
-    freePercent = 100 * (_free - free) / (_total - total);
+    auto usd = _used - used;
+    auto fed = _free - free;
+    usedPercent = 100 * std::abs((usd  - fed) / usd);
+    freePercent = 100 - usedPercent;
 
     total = _total;
     used = _used;

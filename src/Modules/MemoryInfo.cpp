@@ -69,5 +69,5 @@ double Krell::Modules::MemoryInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::MemoryInfo::drawModule(SFMLDisplay &disp)
 {
-
+(void)disp;
 }

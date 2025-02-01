@@ -44,6 +44,11 @@ void Krell::Modules::CpuInfo::refresh()
         value.erase(value.find_last_not_of(" \t") + 1);
         _cpuInfo[key] = value;
     }
+    file.close();
+
+    //temperature
+    file.open("/sys/class/thermal/thermal_zone0/temp");
+    std::getline(file, _cpuInfo["Temperature"]);
 }
 
 double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
@@ -54,10 +59,12 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
         return static_cast<double>(CpuThreads());
     if (key == MGHZ)
         return static_cast<double>(CpuMhz());
+    if (key == TEMPERATURE)
+        return (std::stof(_cpuInfo.at("Temperature"))) / 1000;
     return 0.0;
 }
 
 void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
 {
-
+(void)disp;
 }

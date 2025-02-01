@@ -23,7 +23,7 @@ namespace Krell {
 
                 std::string getHostname() const { return _hostname; }
                 std::string getUsername() const { return _username; }
-                virtual void drawModule(SFMLDisplay &disp) override {};
+                virtual void drawModule(SFMLDisplay &disp) override {(void)disp;};
 
             private:
                 std::string _hostname;
