@@ -1,24 +1,26 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/include/Modules/MemoryInfo
+** Include/Modules/MemoryInfo
 ** File description:
-** Memory Info
+** MemoryInfo
 */
 
 #pragma once
 
-#include "IModule.hpp"
 #include <cstddef>
 #include <map>
 #include <string>
+
+#include "IModule.hpp"
 
 namespace Krell {
     namespace Modules {
         class MemoryInfo: public IModule {
             public:
                 MemoryInfo();
-                ~MemoryInfo();
+                ~MemoryInfo() override;
                 void refresh() override;
+                double getValue(const std::string& key) const override;
 
                 // note that the values are in KB
                 size_t Total() const { return _memoryInfo.at("MemTotal:"); }
@@ -46,7 +48,6 @@ namespace Krell {
                 size_t vmallocUsePercentage() const { return (VmallocUsed() * 100) / VmallocTotal(); }
                 size_t vmallocChunkPercentage() const { return (VmallocChunk() * 100) / VmallocTotal(); }
                 size_t vmallocUsedPercentage() const { return (VmallocUsed() * 100) / VmallocTotal(); }
-
 
             private:
                 std::map<std::string, size_t> _memoryInfo;
