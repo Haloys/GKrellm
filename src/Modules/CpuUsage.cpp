@@ -66,4 +66,5 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
             return static_cast<double>(freePercent);
         default:
             return 0.0;
+    }
 }
