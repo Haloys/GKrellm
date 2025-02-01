@@ -76,7 +76,7 @@ void Krell::SFMLDisplay::refresh()
         values.erase(values.begin());
         values.push_back(_modules["cpu_usage"]->getValue(IModule::USEDPERCENT));
     }
-    chart.setData({values});
+    chart.setData({values}, true);
     chart.draw(_window);
 
     // Detailed CPU Info
@@ -100,6 +100,12 @@ void Krell::SFMLDisplay::refresh()
     ramTextBox.draw(_window);
     progressBar.setProgress(_modules["mem"]->getValue(IModule::USEDPERCENT), true);
     progressBar.setPosition(sf::Vector2f(400, 100));
+    progressBar.draw(_window);
+    Display::TextBox ramSwapTextBox(sf::Vector2f(20, 20), "Swap Usage", _font);
+    ramTextBox.setPosition(sf::Vector2f(400, 150));
+    ramTextBox.draw(_window);
+    progressBar.setProgress(_modules["mem"]->getValue(IModule::USEDPERCENT), true);
+    progressBar.setPosition(sf::Vector2f(400, 180));
     progressBar.draw(_window);
 
     // Refresh Delay
