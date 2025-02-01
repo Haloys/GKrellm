@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /home/vj/coding/t2r3/include/Modules/Disk
+** Include/Modules/Disk
 ** File description:
-** disk info mostly just disk usage
+** Disk
 */
 
 #pragma once

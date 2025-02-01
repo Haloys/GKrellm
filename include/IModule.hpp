@@ -8,8 +8,8 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
-#include <string>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 namespace Krell {
     class SFMLDisplay;

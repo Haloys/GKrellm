@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /home/vj/coding/t2r3/src/Modules/Disk
+** src/Modules/Disk
 ** File description:
-** disk info mostly just disk usage
+** Disk
 */
 
 
@@ -11,9 +11,7 @@
 
 #include "Modules/Disk.hpp"
 
-Krell::Modules::Disk::Disk() :
-    IModule(sf::Vector2f(0, 0)),
-    _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
+Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(0, 0)), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
 
 {
     refresh();

@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+
 #include "Modules/CpuUsage.hpp"
 #include "Modules/CpuInfo.hpp"
 #include "Modules/MemoryInfo.hpp"

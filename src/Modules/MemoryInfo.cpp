@@ -16,14 +16,14 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(0, 0)
-)
+Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(0, 0))
 {
     refresh();
 }
 
 Krell::Modules::MemoryInfo::~MemoryInfo()
 {
+
 }
 
 void Krell::Modules::MemoryInfo::refresh()

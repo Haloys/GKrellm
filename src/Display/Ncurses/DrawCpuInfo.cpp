@@ -22,6 +22,22 @@ void Krell::NCursesDisplay::drawCpuInfo(int maxX)
     mvprintw(13, 3, "Frequency: %zu MHz", cpuInfo.CpuMhz());
     mvprintw(14, 3, "Cache: %s", cpuInfo.CacheSize().c_str());
     mvprintw(15, 3, "Vendor: %s", cpuInfo.VendorId().c_str());
+
+    double temp = cpuInfo.getValue(Krell::IModule::TEMPERATURE);
+    int color = COLOR_PAIR(1);
+    if (temp > 70) {
+        color = COLOR_PAIR(5);
+    } else if (temp > 60) {
+        color = COLOR_PAIR(4);
+    }
+
+    attron(color | A_BOLD);
+    mvprintw(12, maxX - 15, "%.1f°C", temp);
+    attroff(color | A_BOLD);
+
+    attron(COLOR_PAIR(2));
+    mvprintw(11, maxX - 17, "Temperature:");
+    attroff(COLOR_PAIR(2));
 }
 
 void Krell::NCursesDisplay::drawCpuUsage(int maxX)

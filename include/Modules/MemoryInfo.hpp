@@ -48,6 +48,7 @@ namespace Krell {
                 size_t vmallocUsePercentage() const { return (VmallocUsed() * 100) / (VmallocTotal() == 0 ? 1 : VmallocTotal()); }
                 size_t vmallocChunkPercentage() const { return (VmallocChunk() * 100) / (VmallocTotal() == 0 ? 1 : VmallocTotal()); }
                 size_t vmallocUsedPercentage() const { return (VmallocUsed() * 100) / (VmallocTotal() == 0 ? 1 : VmallocTotal()); }
+
                 void drawModule(SFMLDisplay &disp) override;
 
             private:

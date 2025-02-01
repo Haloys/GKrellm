@@ -8,6 +8,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include "IDisplay.hpp"
 
 #define FONT_PATH "assets/font/Arial.ttf"
