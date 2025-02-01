@@ -45,7 +45,8 @@ namespace Krell {
             virtual ~IDisplay() = default;
             void refresh_all() {
                 for (auto& [key, value] : _modules) {
-                    value->refresh();
+                    if (value->isEnabled())
+                        value->refresh();
                 }
             }
             virtual void refresh() = 0;

@@ -84,7 +84,7 @@ void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
     modelName += "Cores: " + std::to_string(int(getValue(IModule::CORES))) + "\n";
     modelName += "Threads: " + std::to_string(int(getValue(IModule::THREADS))) + "\n";
     modelName += "Frequency: " + std::to_string(int(getValue(IModule::MGHZ))) + " MHz\n";
-    // modelName += "Temperature: " + std::to_string(int(getValue(IModule::TEMPERATURE))) + "C\n";
+    modelName += "Temperature: " + std::to_string(int(getValue(IModule::TEMPERATURE))) + "C\n";
 
     Display::TextBox modelTextBox(sf::Vector2f(20, 20), modelName, disp.getFont());
     modelTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));

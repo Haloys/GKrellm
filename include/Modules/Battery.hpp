@@ -24,6 +24,8 @@ namespace Krell {
                 size_t getBatteryTime() const { return _batteryTime; }
                 bool isCharging() const { return _charging; }
 
+                void drawModule(SFMLDisplay &disp) override;
+
             private:
                 size_t _batteryPercent;
                 size_t _batteryTime;

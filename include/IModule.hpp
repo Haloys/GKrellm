@@ -49,6 +49,9 @@ namespace Krell {
             void enable() {
                 _enabled = true;
             }
+            void toggle() {
+                _enabled = !_enabled;
+            }
             bool isEnabled() {
                 return _enabled;
             }

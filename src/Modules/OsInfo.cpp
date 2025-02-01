@@ -8,6 +8,9 @@
 #include <fstream>
 #include <sstream>
 #include "Modules/OsInfo.hpp"
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Utils.hpp"
 
 Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(0, 0))
 {
@@ -51,4 +54,23 @@ double Krell::Modules::OsInfo::getValue(ModuleKey key) const
 {
     (void)key;
     return 0.0;
+}
+
+void Krell::Modules::OsInfo::drawModule(SFMLDisplay &disp)
+{
+    Display::Container container(sf::Vector2f(420, 0), size);
+
+    container.draw(disp.getWindow());
+
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "Host", disp.getFont());
+    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    cpuInfoTextBox.draw(disp.getWindow());
+
+    std::string Host = "Host: " + _osName + "\n";
+
+
+    Display::TextBox modelTextBox(sf::Vector2f(20, 20), Host, disp.getFont());
+    modelTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));
+    modelTextBox.draw(disp.getWindow());
+
 }

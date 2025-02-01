@@ -24,7 +24,7 @@ namespace Krell {
                 std::string getOsName() const { return _osName; }
                 std::string getKernelVersion() const { return _kernelVersion; }
                 std::string getMachine() const { return _machine; }
-                virtual void drawModule(SFMLDisplay &disp) override {(void)disp;};
+                virtual void drawModule(SFMLDisplay &disp) override;
 
             private:
                 std::string _osName;

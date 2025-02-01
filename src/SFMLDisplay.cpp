@@ -53,16 +53,13 @@ void Krell::SFMLDisplay::refresh()
 
     if (_delayClock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
-        for (const auto &[name, module] : _modules)
-        {
-            module->refresh();
-        }
         refresh_all();
     }
 
     for (const auto &[name, module] : _modules)
     {
-        module->drawModule(*this);
+        if (module->isEnabled())
+            module->drawModule(*this);
     }
 
     // Refresh Delay
@@ -97,13 +94,37 @@ void Krell::SFMLDisplay::handleEvents()
             _isRunning = false;
             break;
         case sf::Event::KeyPressed:
-            if (event.key.code == sf::Keyboard::Up)
-            {
-                _refreshDelay = std::min(10000, _refreshDelay + 100);
-            }
-            else if (event.key.code == sf::Keyboard::Down)
-            {
-                _refreshDelay = std::max(100, _refreshDelay - 100);
+            switch (event.key.code) {
+                case sf::Keyboard::Up:
+                    _refreshDelay = std::min(10000, _refreshDelay + 100);
+                    break;
+                case sf::Keyboard::Down:
+                    _refreshDelay = std::max(100, _refreshDelay - 100);
+                    break;
+                case sf::Keyboard::C:
+                    _modules["cpu_usage"]->toggle();
+                    break;
+                case sf::Keyboard::R:
+                    _modules["mem"]->toggle();
+                    break;
+                case sf::Keyboard::I:
+                    _modules["cpu_info"]->toggle();
+                    break;
+                case sf::Keyboard::D:
+                    _modules["datetime"]->toggle();
+                    break;
+                case sf::Keyboard::H:
+                    _modules["host"]->toggle();
+                    break;
+                case sf::Keyboard::O:
+                    _modules["os"]->toggle();
+                    break;
+                case sf::Keyboard::N:
+                    _modules["network"]->toggle();
+                    break;
+
+                default:
+                    break;
             }
             break;
         default:
