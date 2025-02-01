@@ -9,13 +9,19 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SFMLDisplay.hpp"
+
 namespace Display
 {
     class Container
     {
     public:
         Container(const sf::Vector2f &position, const sf::Vector2f &size)
-            : _position(position), _size(size) {}
+            : _position(position), _size(size)
+        {
+            _rectangle.setFillColor(BG_COLOR_TEST);
+            _rectangle.setSize(size);
+        }
 
         void setPosition(const sf::Vector2f &position);
 
@@ -25,8 +31,11 @@ namespace Display
 
         const sf::Vector2f &getSize() const;
 
+        void draw(sf::RenderWindow &window);
+
     private:
         sf::Vector2f _position;
         sf::Vector2f _size;
+        sf::RectangleShape _rectangle;
     };
 }
