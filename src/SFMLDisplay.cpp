@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <iostream>
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"
@@ -14,10 +15,8 @@
 #include "Display/SFML/Chart.hpp"
 #include "Display/SFML/ClockDisplay.hpp"
 
-Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false)
-{
 
-}
+Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay() {}
 
 Krell::SFMLDisplay::~SFMLDisplay()
 {
@@ -43,6 +42,8 @@ void Krell::SFMLDisplay::refresh()
 
     Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
 
+    refresh_all();
+
     Display::Box box(container.getSize());
     box.setPosition(container.getPosition());
     box.draw(_window);
@@ -66,7 +67,7 @@ void Krell::SFMLDisplay::refresh()
     container.setPosition(sf::Vector2f(100, 300));
     Display::ProgressBar progressBar(container.getSize());
     progressBar.setPosition(container.getPosition());
-    progressBar.setProgress(50);
+    progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
     progressBar.draw(_window);
 
     container.setPosition(sf::Vector2f(420, 300));
@@ -102,3 +103,33 @@ bool Krell::SFMLDisplay::isRunning() const
 {
     return _isRunning;
 }
+
+/* void Krell::SFMLDisplay::drawModule(const IModule& module) */
+/* { */
+/*     const float yPos = 10; */
+/*     _window.clear(sf::Color::Black); */
+/*     sf::Text text; */
+/*     text.setFont(_font); */
+/*     text.setCharacterSize(20); */
+/*     text.setFillColor(sf::Color::White); */
+/*     text.setPosition(10, yPos); */
+/*     text.setString("CPU Usage"); */
+/*     _window.draw(text); */
+/*     sf::RectangleShape background(sf::Vector2f(200, 20)); */
+/*     background.setPosition(10, yPos + 30); */
+/*     background.setFillColor(sf::Color(50, 50, 50)); */
+/*     _window.draw(background); */
+/*  */
+/*     float usagePercent = static_cast<float>(module.getValue("used")) / */
+/*                         static_cast<float>(module.getValue("total")) * 100.0f; */
+/*  */
+/*     sf::RectangleShape usageBar(sf::Vector2f(usagePercent * 2, 20)); */
+/*     usageBar.setPosition(10, yPos + 30); */
+/*     usageBar.setFillColor(sf::Color(0, 255, 0)); */
+/*     _window.draw(usageBar); */
+/*  */
+/*     text.setPosition(220, yPos + 30); */
+/*     text.setCharacterSize(16); */
+/*     text.setString(std::to_string(static_cast<int>(usagePercent)) + "%"); */
+/*     _window.draw(text); */
+/* } */

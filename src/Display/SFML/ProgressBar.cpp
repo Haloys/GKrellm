@@ -22,7 +22,7 @@ namespace Display
         _progress.setPosition(sf::Vector2f(position.x + 10, position.y + 10));
     }
 
-    void ProgressBar::setProgress(float percentage)
+    void ProgressBar::setProgress(double percentage)
     {
         sf::Vector2f size = _box.getRectangle().getSize();
         size.x = (size.x - 20) * (percentage / 100.0f);
