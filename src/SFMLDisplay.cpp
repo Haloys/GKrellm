@@ -43,6 +43,11 @@ void Krell::SFMLDisplay::start()
     }
 }
 
+void Krell::SFMLDisplay::drawModule()
+{
+
+}
+
 void Krell::SFMLDisplay::refresh()
 {
     getWindow().clear(BG_COLOR);

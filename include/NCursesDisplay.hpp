@@ -21,6 +21,10 @@ namespace Krell {
             void drawBox(int y, int x, int height, int width, const std::string& title);
             void drawProgressBar(int y, int x, double percentage, int width);
 
+            void drawCpuInfo(int maxX);
+            void drawCpuUsage(int maxX);
+            void drawMemoryInfo(int maxX);
+
         public:
             NCursesDisplay();
             ~NCursesDisplay();
@@ -29,6 +33,6 @@ namespace Krell {
             void stop() override;
             bool isRunning() const override;
             void handleEvents() override;
-            void drawModule(const IModule& module) override;
+            void drawModule() override;
     };
 }
