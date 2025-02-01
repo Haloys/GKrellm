@@ -17,6 +17,7 @@
 #include "Modules/DateTimeInfo.hpp"
 #include "Modules/HostInfo.hpp"
 #include "Modules/OsInfo.hpp"
+#include "Modules/Network.hpp"
 
 namespace Krell {
     class IModule;
@@ -24,6 +25,7 @@ namespace Krell {
         class CpuUsage;
         class CpuInfo;
         class MemoryInfo;
+        class Network;
     }
 }
 
@@ -37,6 +39,7 @@ namespace Krell {
                 _modules["datetime"] = std::make_unique<Modules::DateTimeInfo>();
                 _modules["host"] = std::make_unique<Modules::HostInfo>();
                 _modules["os"] = std::make_unique<Modules::OsInfo>();
+                _modules["network"] = std::make_unique<Modules::Network>();
             };
             virtual ~IDisplay() = default;
             void refresh_all() {
