@@ -1,2 +1,4 @@
 MyGKrellm
 .build/
+*.out
+*.o
