@@ -17,7 +17,10 @@
 #include "Display/SFML/ClockDisplay.hpp"
 
 
-Krell::SFMLDisplay::SFMLDisplay() : _isRunning(false), IDisplay() {}
+Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false)
+{
+
+}
 
 Krell::SFMLDisplay::~SFMLDisplay()
 {
