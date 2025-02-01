@@ -43,5 +43,9 @@ namespace Krell {
         bool isRunning() const override;
         void handleEvents() override;
         void drawModule(const IModule& module) { (void)module; }
+        sf::Font &getFont() { return _font; }
+        int getRefreshDelay() { return _refreshDelay; }
+        sf::Clock &getDelayClock() { return _delayClock; }
+        sf::RenderWindow &getWindow() { return _window; }
     };
 }

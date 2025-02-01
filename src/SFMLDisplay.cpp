@@ -34,10 +34,10 @@ Krell::SFMLDisplay::~SFMLDisplay()
 
 void Krell::SFMLDisplay::start()
 {
-    _window.create(sf::VideoMode(1600, 1024), "MyGKrellm");
-    _window.setFramerateLimit(60);
+    getWindow().create(sf::VideoMode(1600, 1024), "MyGKrellm");
+    getWindow().setFramerateLimit(60);
     _isRunning = true;
-    if (!_font.loadFromFile(FONT_PATH))
+    if (!getFont().loadFromFile(FONT_PATH))
     {
         std::cerr << "Error loading font\n";
     }
@@ -45,7 +45,7 @@ void Krell::SFMLDisplay::start()
 
 void Krell::SFMLDisplay::refresh()
 {
-    _window.clear(BG_COLOR);
+    getWindow().clear(BG_COLOR);
 
     if (_delayClock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
@@ -57,18 +57,18 @@ void Krell::SFMLDisplay::refresh()
     }
 
     Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
-    Display::ProgressBar progressBar(sf::Vector2f(360, 50), _font);
+    Display::ProgressBar progressBar(sf::Vector2f(360, 50), getFont());
 
     // CPU Usage
     container.setPosition(sf::Vector2f(50, 50));
     container.setSize(sf::Vector2f(400, 400));
-    container.draw(_window);
-    Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", _font);
+    container.draw(getWindow());
+    Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", getFont());
     cpuTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
-    cpuTextBox.draw(_window);
+    cpuTextBox.draw(getWindow());
     progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
     progressBar.setProgress(_modules["cpu_usage"]->getValue(IModule::USEDPERCENT), true);
-    progressBar.draw(_window);
+    progressBar.draw(getWindow());
 
     Display::Chart chart(sf::Vector2f(360, 150));
     chart.setPosition(vecCalc(container.getPosition(), 20, 120));
@@ -79,64 +79,64 @@ void Krell::SFMLDisplay::refresh()
         values.push_back(_modules["cpu_usage"]->getValue(IModule::USEDPERCENT));
     }
     chart.setData({values}, true);
-    chart.draw(_window);
+    chart.draw(getWindow());
 
     // Detailed CPU Info
-    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", _font);
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", getFont());
     cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 280));
-    cpuInfoTextBox.draw(_window);
+    cpuInfoTextBox.draw(getWindow());
 
     std::string cpuInfo = "Cores: " + std::to_string(int(_modules["cpu_info"]->getValue(IModule::CORES))) + "\n";
     cpuInfo += "Frequency: " + std::to_string(int(_modules["cpu_info"]->getValue(IModule::MGHZ))) + " MHz\n";
     /* cpuInfo += "Temperature: " + std::to_string(_modules["cpu_info"]->getValue(temp)) + " °C\n"; */
 
-    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, _font);
+    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, getFont());
     cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 20, 320));
-    cpuDetailsTextBox.draw(_window);
+    cpuDetailsTextBox.draw(getWindow());
 
     // Memory Usage
     container.setPosition(sf::Vector2f(500, 50));
     container.setSize(sf::Vector2f(400, 400));
-    container.draw(_window);
+    container.draw(getWindow());
 
-    Display::TextBox ramTextBox(sf::Vector2f(20, 20), "RAM Usage", _font);
+    Display::TextBox ramTextBox(sf::Vector2f(20, 20), "RAM Usage", getFont());
     ramTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
-    ramTextBox.draw(_window);
+    ramTextBox.draw(getWindow());
     progressBar.setProgress(_modules["mem"]->getValue(IModule::USEDPERCENT), true);
     progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
-    progressBar.draw(_window);
-    Display::TextBox ramSwapTextBox(sf::Vector2f(20, 20), "Swap Usage", _font);
+    progressBar.draw(getWindow());
+    Display::TextBox ramSwapTextBox(sf::Vector2f(20, 20), "Swap Usage", getFont());
     ramSwapTextBox.setPosition(vecCalc(container.getPosition(), 20, 120));
-    ramSwapTextBox.draw(_window);
+    ramSwapTextBox.draw(getWindow());
     progressBar.setProgress(_modules["mem"]->getValue(IModule::USEDPERCENT), true);
     progressBar.setPosition(vecCalc(container.getPosition(), 20, 160));
-    progressBar.draw(_window);
+    progressBar.draw(getWindow());
 
     // Refresh Delay
-    Display::TextBox delayTextBox(sf::Vector2f(20, 20), "Refresh Delay: " + std::to_string(_refreshDelay) + "ms", _font);
+    Display::TextBox delayTextBox(sf::Vector2f(20, 20), "Refresh Delay: " + std::to_string(_refreshDelay) + "ms", getFont());
     delayTextBox.setPosition(vecCalc(container.getPosition(), 700, 70));
-    delayTextBox.draw(_window);
+    delayTextBox.draw(getWindow());
 
     Display::ClockDisplay clockDisplay(sf::Vector2f(200, 50), sf::Vector2f(1500, 0));
     clockDisplay.update();
-    clockDisplay.draw(_window);
+    clockDisplay.draw(getWindow());
     if (_delayClock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
         _delayClock.restart();
     }
-    _window.display();
+    getWindow().display();
 }
 
 void Krell::SFMLDisplay::stop()
 {
-    _window.close();
+    getWindow().close();
     _isRunning = false;
 }
 
 void Krell::SFMLDisplay::handleEvents()
 {
     sf::Event event;
-    while (_window.pollEvent(event))
+    while (getWindow().pollEvent(event))
     {
         switch (event.type)
         {
