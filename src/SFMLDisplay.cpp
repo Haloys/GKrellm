@@ -15,7 +15,8 @@
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/Chart.hpp"
 #include "Display/SFML/ClockDisplay.hpp"
-
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/TextBox.hpp"
 
 Krell::SFMLDisplay::SFMLDisplay() : IDisplay(), _isRunning(false)
 {
@@ -44,39 +45,35 @@ void Krell::SFMLDisplay::refresh()
         module->refresh();
     }
 
-
     refresh_all();
 
-    Display::Container container(sf::Vector2f(100, 100), sf::Vector2f(200, 100));
+    Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(200, 100));
     Display::Box box(container.getSize());
-    Display::ProgressBar progressBar(container.getSize());
+    Display::ProgressBar progressBar(sf::Vector2f(200, 50));
+
+    sf::Font font;
+    if (!font.loadFromFile(FONT_PATH)) {
+        std::cerr << "Error loading font\n";
+    }
 
     // CPU Usage
-    box.setPosition(container.getPosition());
-    box.draw(_window);
+    Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", font);
+    cpuTextBox.setPosition(sf::Vector2f(container.getPosition().x + 100, container.getPosition().y + 70));
+    cpuTextBox.draw(_window);
     progressBar.setProgress(_modules["cpu_usage"]->getValue("usedPercent"));
-    progressBar.setPosition(container.getPosition());
+    progressBar.setPosition(sf::Vector2f(container.getPosition().x + 100, container.getPosition().y + 100));
     progressBar.draw(_window);
 
-    container.setPosition(sf::Vector2f(400, 100));
-    box.setPosition(container.getPosition());
-    box.draw(_window);
+    // Memory Usage
+    container.setPosition(sf::Vector2f(200, 0));
 
-    container.setPosition(sf::Vector2f(700, 100));
-    box.setPosition(container.getPosition());
-    box.draw(_window);
+    Display::TextBox ramTextBox(sf::Vector2f(20, 20), "RAM Usage", font);
+    ramTextBox.setPosition(sf::Vector2f(400, 70));
+    ramTextBox.draw(_window);
+    progressBar.setProgress(_modules["mem"]->getValue("usedPercent"));
+    progressBar.setPosition(sf::Vector2f(400, 100));
+    progressBar.draw(_window);
 
-    container.setPosition(sf::Vector2f(1000, 100));
-    box.setPosition(container.getPosition());
-    box.draw(_window);
-
-    container.setPosition(sf::Vector2f(1300, 100));
-    box.setPosition(container.getPosition());
-    box.draw(_window);
-
-    container.setPosition(sf::Vector2f(100, 300));
-    box.setPosition(container.getPosition());
-    box.draw(_window);
 
     container.setPosition(sf::Vector2f(400, 300));
     Display::Chart chart(container.getSize());
