@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** src/Modules/MemoryInfo
 ** File description:
-** Memory Info
+** MemoryInfo
 */
 
 #include <iostream>

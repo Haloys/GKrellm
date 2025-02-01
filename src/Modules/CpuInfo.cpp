@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/src/Modules/CpuInfo
+** src/Modules/CpuInfo
 ** File description:
-** cpu
+** CpuInfo
 */
 
 #include <iostream>

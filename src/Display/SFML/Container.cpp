@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** Src/main
+** src/Display/SFML/Container
 ** File description:
-** Chart
+** Container
 */
 
 #include "SFMLDisplay.hpp"

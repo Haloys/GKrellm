@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <iostream>
+
 #include "SFMLDisplay.hpp"
 #include "Display/SFML/Box.hpp"
 #include "Display/SFML/ProgressBar.hpp"

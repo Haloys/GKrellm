@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /tmp/playground/r3/src/Modules/CpuUsage
+** src/Modules/CpuUsage
 ** File description:
-** cpu
+** CpuUsage
 */
 
 #include <iostream>
