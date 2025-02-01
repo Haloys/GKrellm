@@ -42,6 +42,6 @@ namespace Krell {
         void stop() override;
         bool isRunning() const override;
         void handleEvents() override;
-        void drawModule(const IModule& module) { (void)module; }
+        void drawModule() override;
     };
 }

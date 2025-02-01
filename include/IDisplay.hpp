@@ -34,7 +34,7 @@ namespace Krell {
             virtual void stop() = 0;
             virtual bool isRunning() const = 0;
             virtual void handleEvents() = 0;
-            virtual void drawModule(const IModule& module) = 0;
+            virtual void drawModule() = 0;
         protected:
             std::map<std::string, std::unique_ptr<IModule>> _modules;
     };

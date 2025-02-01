@@ -53,15 +53,17 @@ void Krell::Modules::CpuUsage::refresh()
 
 double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
 {
-    if (key == TOTAL)
-        return static_cast<double>(total);
-    if (key == USED)
-        return static_cast<double>(used);
-    if (key == FREE)
-        return static_cast<double>(free);
-    if (key == USEDPERCENT)
-        return static_cast<double>(usedPercent);
-    if (key == FREEPERCENT)
-        return static_cast<double>(freePercent);
-    return 0.0;
+    switch (key) {
+        case TOTAL:
+            return static_cast<double>(total);
+        case USED:
+            return static_cast<double>(used);
+        case FREE:
+            return static_cast<double>(free);
+        case USEDPERCENT:
+            return static_cast<double>(usedPercent);
+        case FREEPERCENT:
+            return static_cast<double>(freePercent);
+        default:
+            return 0.0;
 }

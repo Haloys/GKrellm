@@ -8,6 +8,8 @@
 #include "NCursesDisplay.hpp"
 #include "IModule.hpp"
 
+#include <thread>
+
 Krell::NCursesDisplay::NCursesDisplay() : IDisplay(), _isRunning(false)
 {
 
@@ -28,6 +30,7 @@ void Krell::NCursesDisplay::start()
     start_color();
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
+    init_pair(3, COLOR_WHITE, COLOR_BLACK);
     keypad(_window, TRUE);
     nodelay(_window, TRUE);
     timeout(0);
@@ -39,6 +42,7 @@ void Krell::NCursesDisplay::refresh()
 {
     refresh_all();
     ::refresh();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Krell::NCursesDisplay::stop()
@@ -63,15 +67,19 @@ bool Krell::NCursesDisplay::isRunning() const
 }
 
 
-void Krell::NCursesDisplay::drawModule([[maybe_unused]] const IModule& module)
+void Krell::NCursesDisplay::drawModule()
 {
     clear();
     int maxY, maxX;
     getmaxyx(_window, maxY, maxX);
 
-    drawBox(1, 1, 7, maxX - 3, "CPU Information");
+    drawCpuInfo(maxX);
+    drawCpuUsage(maxX);
+    drawMemoryInfo(maxX);
 
     attron(A_DIM);
+    attron(COLOR_PAIR(3) | A_BOLD);
     mvprintw(maxY - 1, 2, "Press 'q' to quit | Update interval: 100ms");
+    attroff(COLOR_PAIR(3) | A_BOLD);
     attroff(A_DIM);
 }

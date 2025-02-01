@@ -8,9 +8,6 @@
 #include "NCursesDisplay.hpp"
 #include "IModule.hpp"
 
-#include <iomanip>
-#include <sstream>
-
 void Krell::NCursesDisplay::drawBox(int y, int x, int height, int width, const std::string& title)
 {
     box(_window, 0, 0);
@@ -25,17 +22,4 @@ void Krell::NCursesDisplay::drawBox(int y, int x, int height, int width, const s
     attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(y, x + 2, " %s ", title.c_str());
     attroff(COLOR_PAIR(2) | A_BOLD);
-}
-
-void Krell::NCursesDisplay::drawProgressBar(int y, int x, double percentage, int width)
-{
-    mvprintw(y, x, "[");
-    int usedWidth = static_cast<int>((percentage / 100.0) * (width - 2));
-    attron(COLOR_PAIR(1));
-    for (int i = 0; i < usedWidth; i++)
-        printw("|");
-    attroff(COLOR_PAIR(1));
-    for (int i = usedWidth; i < width - 2; i++)
-        printw(" ");
-    printw("] %5.1f%%", percentage);
 }
