@@ -96,7 +96,7 @@ void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 
     Display::Chart chart(sf::Vector2f(360, 150));
     chart.setPosition(vecCalc(container.getPosition(), 20, 120));
-    static std::vector<float> values(10, 0);
+    static std::vector<float> values(50, 0);
     if (disp.getDelayClock().getElapsedTime().asMilliseconds() > disp.getRefreshDelay())
     {
         values.erase(values.begin());
