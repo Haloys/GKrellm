@@ -56,3 +56,8 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
         return static_cast<double>(CpuMhz());
     return 0.0;
 }
+
+void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
+{
+
+}

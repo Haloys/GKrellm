@@ -12,6 +12,11 @@
 
 #include "Modules/CpuUsage.hpp"
 #include "IModule.hpp"
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/Chart.hpp"
+#include "Utils.hpp"
 
 Krell::Modules::CpuUsage::CpuUsage()
 {
@@ -68,4 +73,46 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
         default:
             return 0.0;
     }
+}
+
+
+void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
+{
+    Display::Container container(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+    Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
+
+    // CPU Usage
+    container.setPosition(sf::Vector2f(50, 50));
+    container.setSize(sf::Vector2f(400, 400));
+    container.draw(disp.getWindow());
+    Display::TextBox cpuTextBox(sf::Vector2f(20, 20), "CPU Usage", disp.getFont());
+    cpuTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    cpuTextBox.draw(disp.getWindow());
+    progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
+    progressBar.setProgress(disp.getModule("cpu_usage")->getValue(IModule::USEDPERCENT), true);
+    progressBar.draw(disp.getWindow());
+
+    Display::Chart chart(sf::Vector2f(360, 150));
+    chart.setPosition(vecCalc(container.getPosition(), 20, 120));
+    static std::vector<float> values(10, 0);
+    if (disp.getDelayClock().getElapsedTime().asMilliseconds() > disp.getRefreshDelay())
+    {
+        values.erase(values.begin());
+        values.push_back(disp.getModule("cpu_usage")->getValue(IModule::USEDPERCENT));
+    }
+    chart.setData({values}, true);
+    chart.draw(disp.getWindow());
+
+    // Detailed CPU Info
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "CPU Info", disp.getFont());
+    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 280));
+    cpuInfoTextBox.draw(disp.getWindow());
+
+    std::string cpuInfo = "Cores: " + std::to_string(int(disp.getModule("cpu_info")->getValue(IModule::CORES))) + "\n";
+    cpuInfo += "Frequency: " + std::to_string(int(disp.getModule("cpu_info")->getValue(IModule::MGHZ))) + " MHz\n";
+    /* cpuInfo += "Temperature: " + std::to_string(disp.getModule("cpu_info")->getValue(temp)) + " °C\n"; */
+
+    Display::TextBox cpuDetailsTextBox(sf::Vector2f(20, 20), cpuInfo, disp.getFont());
+    cpuDetailsTextBox.setPosition(vecCalc(container.getPosition(), 20, 320));
+    cpuDetailsTextBox.draw(disp.getWindow());
 }
