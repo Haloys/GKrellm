@@ -18,7 +18,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(400, 200))
+Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(50, 370), sf::Vector2f(400, 200), "CpuInfo")
 {
     refresh();
 }
@@ -64,14 +64,19 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
         return static_cast<double>(CpuThreads());
     if (key == MGHZ)
         return static_cast<double>(CpuMhz());
-    if (key == TEMPERATURE)
-        return (std::stof(_cpuInfo.at("Temperature"))) / 1000;
+    if (key == TEMPERATURE) {
+        try {
+            return (std::stof(_cpuInfo.at("Temperature"))) / 1000;
+        } catch (const std::exception &e) {
+            return 0.0;
+        }
+    }
     return 0.0;
 }
 
 void Krell::Modules::CpuInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 370), size);
+    Display::Container container(pos, size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());

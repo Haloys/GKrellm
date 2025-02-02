@@ -15,7 +15,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(400, 100)), _batteryPercent(0), _batteryTime(0), _charging(false)
+Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(500, 700), sf::Vector2f(400, 100), "Battery"), _batteryPercent(0), _batteryTime(0), _charging(false)
 {
 
 }
@@ -86,7 +86,7 @@ double Krell::Modules::Battery::getValue(ModuleKey key) const
 
 void Krell::Modules::Battery::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(500, 700), size);
+    Display::Container container(pos, size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());

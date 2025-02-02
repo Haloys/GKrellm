@@ -17,7 +17,7 @@
 #include "Modules/Network.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Network::Network() : IModule(sf::Vector2f(400, 300)), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
+Krell::Modules::Network::Network() : IModule(sf::Vector2f(950, 50), sf::Vector2f(400, 300), "Network"), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
 
 }
@@ -109,7 +109,7 @@ double Krell::Modules::Network::getValue(ModuleKey key) const {
 
 void Krell::Modules::Network::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(950, 50), size);
+    Display::Container container(pos, size);
     container.draw(disp.getWindow());
 
     auto formatBytes = [](double bytes) -> std::string {

@@ -32,7 +32,7 @@ namespace Krell {
         sf::Font _font;
         int _refreshDelay;
         sf::Clock _delayClock;
-
+        bool _isMenuOpen;
     public:
         SFMLDisplay();
         ~SFMLDisplay();

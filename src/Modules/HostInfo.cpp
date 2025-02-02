@@ -17,7 +17,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::HostInfo::HostInfo() : IModule(sf::Vector2f(400, 190))
+Krell::Modules::HostInfo::HostInfo() : IModule(sf::Vector2f(950, 380), sf::Vector2f(400, 190), "HostInfo")
 {
     refresh();
 }
@@ -59,7 +59,7 @@ double Krell::Modules::HostInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::HostInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(950, 380), size);
+    Display::Container container(pos, size);
     container.draw(disp.getWindow());
 
     Display::TextBox titleBox(sf::Vector2f(360, 30), "Host Information", disp.getFont());

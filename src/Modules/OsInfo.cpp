@@ -13,7 +13,7 @@
 #include "Modules/OsInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(400, 200))
+Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(50, 600), sf::Vector2f(400, 200), "OsInfo")
 {
     refresh();
 }
@@ -59,7 +59,7 @@ double Krell::Modules::OsInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::OsInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 600), size);
+    Display::Container container(pos, size);
     container.draw(disp.getWindow());
 
     Display::TextBox osInfoTextBox(sf::Vector2f(20, 20), "OS Info", disp.getFont());

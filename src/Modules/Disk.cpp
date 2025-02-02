@@ -18,7 +18,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(400, 200)), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
+Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(950, 600), sf::Vector2f(400, 200), "Disk"), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
 {
     refresh();
 }
@@ -70,7 +70,7 @@ double Krell::Modules::Disk::getValue(ModuleKey key) const
 
 void Krell::Modules::Disk::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(950, 600), size);
+    Display::Container container(pos, size);
     container.draw(disp.getWindow());
 
     Display::TextBox titleBox(sf::Vector2f(360, 30), "Disk Information", disp.getFont());
