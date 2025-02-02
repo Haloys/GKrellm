@@ -55,22 +55,23 @@ void Krell::NCursesDisplay::drawNetworkInfo(int maxX)
     formatBytes(bytesReceived, netInfo.getValue(Krell::IModule::BYTES_RECEIVED));
 
     int center = maxX / 2;
-    int leftCol = (maxX / 4);
-    int rightCol = (maxX * 5) / 8;
+    int offset = center / 3;
+    int leftCol = center - offset;
+    int rightCol = center + offset;
 
     attron(COLOR_PAIR(2));
-    mvprintw(40, leftCol, "v Download");
+    mvprintw(40, leftCol - 10, "v Download");
     attroff(COLOR_PAIR(2));
-    mvprintw(41, leftCol, "Bytes: %s", bytesReceived.str().c_str());
-    mvprintw(42, leftCol, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_RECEIVED));
+    mvprintw(41, leftCol - 10, "Bytes: %s", bytesReceived.str().c_str());
+    mvprintw(42, leftCol - 10, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_RECEIVED));
 
     for (int i = 40; i <= 42; i++) {
         mvaddch(i, center, ACS_VLINE);
     }
 
     attron(COLOR_PAIR(4));
-    mvprintw(40, rightCol, "^ Upload");
+    mvprintw(40, rightCol - 4, "^ Upload");
     attroff(COLOR_PAIR(4));
-    mvprintw(41, rightCol, "Bytes: %s", bytesSent.str().c_str());
-    mvprintw(42, rightCol, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_SENT));
+    mvprintw(41, rightCol - 4, "Bytes: %s", bytesSent.str().c_str());
+    mvprintw(42, rightCol - 4, "Packets: %.0f", netInfo.getValue(Krell::IModule::PACKETS_SENT));
 }

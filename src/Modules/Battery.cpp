@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2025
-** /home/vj/coding/t2r3/src/Modules/Battery
+** src/Modules/Battery
 ** File description:
-** oewub
+** Battery
 */
 
 #include <fstream>
@@ -15,42 +15,62 @@
 #include "Display/SFML/Chart.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Battery::Battery() :
-    IModule(sf::Vector2f(100, 100)),
-    _batteryPercent(0), _batteryTime(0), _charging(false)
+Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(100, 100)), _batteryPercent(0), _batteryTime(0), _charging(false)
 {
+
 }
 
-Krell::Modules::Battery::~Battery() {}
+Krell::Modules::Battery::~Battery()
+{
 
-void Krell::Modules::Battery::refresh() {
-    std::ifstream file("/sys/class/power_supply/BAT0/capacity");
-    if (!file.is_open()) {
-        return;
-    }
-    file >> _batteryPercent;
-    file.close();
+}
 
-    file.open("/sys/class/power_supply/BAT0/status");
-    if (!file.is_open()) {
-        return;
-    }
-    std::string status;
-    file >> status;
-    if (status == "Charging") {
-        _charging = true;
-    } else {
-        _charging = false;
-    }
-    file.close();
+void Krell::Modules::Battery::refresh()
+{
+    static std::string lastFoundBattery;
 
-    //might not exist
-    file.open("/sys/class/power_supply/BAT0/time_to_empty_now");
-    if (!file.is_open()) {
-        return;
+    if (lastFoundBattery.empty()) {
+        const std::vector<std::string> batteryNames = {
+            "BAT0", "BAT1", "BAT2",
+            "CMB0", "CMB1",
+            "BATT", "BATC",
+            "macsmc-battery"
+        };
+
+        for (const auto& name : batteryNames) {
+            std::string path = "/sys/class/power_supply/" + name + "/capacity";
+            std::ifstream test(path);
+            if (test.is_open()) {
+                lastFoundBattery = name;
+                test.close();
+                break;
+            }
+        }
+
+        if (lastFoundBattery.empty()) {
+            _batteryPercent = 0;
+            _charging = false;
+            return;
+        }
     }
-    file >> _batteryTime;
-    file.close();
+
+    std::ifstream file("/sys/class/power_supply/" + lastFoundBattery + "/capacity");
+    if (file.is_open()) {
+        file >> _batteryPercent;
+        file.close();
+    }
+
+    file.open("/sys/class/power_supply/" + lastFoundBattery + "/status");
+    if (file.is_open()) {
+        std::string status;
+        file >> status;
+        if (status == "Charging" || status == "Not discharging") {
+            _charging = true;
+        } else if (status == "Discharging" || status == "Not charging") {
+            _charging = false;
+        }
+        file.close();
+    }
 }
 
 double Krell::Modules::Battery::getValue(ModuleKey key) const

@@ -19,6 +19,7 @@ Krell::NCursesDisplay::NCursesDisplay() : IDisplay(), _isRunning(false)
     _moduleStates['5'] = {"Disk", true};
     _moduleStates['6'] = {"Network", true};
     _moduleStates['7'] = {"System Info", true};
+    _moduleStates['8'] = {"Battery", true};
 }
 
 Krell::NCursesDisplay::~NCursesDisplay()
@@ -123,6 +124,8 @@ void Krell::NCursesDisplay::drawModule()
         drawDiskInfo(maxX);
     if (isModuleActive("Network"))
         drawNetworkInfo(maxX);
+    if (isModuleActive("Battery"))
+        drawBatteryInfo(maxX);
 
     drawHostInfo(maxX);
     drawModuleStatus(maxY, maxX);

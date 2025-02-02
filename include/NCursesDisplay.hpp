@@ -33,6 +33,7 @@ namespace Krell {
             void drawNetworkInfo(int maxX);
             void drawDiskInfo(int maxX);
             void drawModuleStatus(int maxY, int maxX);
+            void drawBatteryInfo(int maxX);
 
         public:
             NCursesDisplay();
