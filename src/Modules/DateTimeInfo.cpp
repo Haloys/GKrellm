@@ -13,7 +13,7 @@
 #include "Modules/DateTimeInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(400, 200))
+Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(400, 200), "DateTimeInfo")
 {
     refresh();
 }

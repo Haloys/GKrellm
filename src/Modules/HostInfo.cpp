@@ -17,7 +17,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::HostInfo::HostInfo() : IModule(sf::Vector2f(400, 190))
+Krell::Modules::HostInfo::HostInfo() : IModule(sf::Vector2f(400, 190), "HostInfo")
 {
     refresh();
 }

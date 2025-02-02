@@ -17,7 +17,7 @@
 #include "Modules/Network.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Network::Network() : IModule(sf::Vector2f(400, 300)), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
+Krell::Modules::Network::Network() : IModule(sf::Vector2f(400, 300), "Network"), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
 
 }

@@ -16,7 +16,7 @@
 #include "Modules/MemoryInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(400, 400))
+Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(400, 400), "MemoryInfo")
 {
     refresh();
 }

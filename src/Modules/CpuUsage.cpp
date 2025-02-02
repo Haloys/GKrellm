@@ -19,7 +19,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(400, 290))
+Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(400, 290), "CpuUsage")
 {
     refresh();
 }

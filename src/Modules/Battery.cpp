@@ -15,7 +15,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(400, 100)), _batteryPercent(0), _batteryTime(0), _charging(false)
+Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(400, 100), "Battery"), _batteryPercent(0), _batteryTime(0), _charging(false)
 {
 
 }

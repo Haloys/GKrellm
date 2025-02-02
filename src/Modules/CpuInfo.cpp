@@ -18,7 +18,7 @@
 #include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(400, 200))
+Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(400, 200), "CpuInfo")
 {
     refresh();
 }

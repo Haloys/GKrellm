@@ -13,7 +13,7 @@
 #include "Modules/OsInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(400, 200))
+Krell::Modules::OsInfo::OsInfo() : IModule(sf::Vector2f(400, 200), "OsInfo")
 {
     refresh();
 }
