@@ -21,7 +21,7 @@ namespace Krell {
                 void refresh() override;
                 double getValue(ModuleKey) const override;
 
-                void drawModule(SFMLDisplay &disp) override { (void)disp; };
+                void drawModule(SFMLDisplay &disp) override;
 
                 size_t getUsed() const { return _used; }
                 size_t getFree() const { return _free; }

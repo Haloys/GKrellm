@@ -46,21 +46,15 @@ void Display::ProgressBar::setProgress(double percentage, bool difColor)
     _txt.setString(std::to_string(int(percentage)) + "%");
     _txt.setFillColor(TEXT_COLOR_WHITE);
 
-    if (difColor == false || percentage <= 25)
-    {
+    if (difColor == false || percentage <= 25) {
         return;
     }
-    if (percentage <= 50)
-    {
+    if (percentage <= 50) {
         _progress.setFillColor(BAR_COLOR_YELLOW);
         _txt.setFillColor(TEXT_COLOR_BLACK);
-    }
-    else if (percentage <= 75)
-    {
+    } else if (percentage <= 75) {
         _progress.setFillColor(BAR_COLOR_ORANGE);
-    }
-    else
-    {
+    } else {
         _progress.setFillColor(BAR_COLOR_RED);
     }
 }

@@ -29,8 +29,7 @@ void Display::TextBox::setText(const std::string &text)
 
 void Display::TextBox::draw(sf::RenderWindow &window)
 {
-    if (_box)
-    {
+    if (_box) {
         window.draw(_rectangle);
     }
     window.draw(_text);

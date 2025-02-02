@@ -13,23 +13,13 @@
 Display::ClockDisplay::ClockDisplay(const sf::Vector2f &size, const sf::Vector2f &position)
     : _box(size * 0.5f), _position(position)
 {
-    if (!_font.loadFromFile(FONT_PATH))
-    {
+    if (!_font.loadFromFile(FONT_PATH)) {
         return;
     }
     _text.setFont(_font);
     _text.setCharacterSize(24);
     _text.setFillColor(sf::Color::White);
     _text.setPosition(_position);
-}
-
-void Display::ClockDisplay::update()
-{
-    std::time_t now = std::time(nullptr);
-    std::tm *localTime = std::localtime(&now);
-    char buffer[10];
-    std::strftime(buffer, sizeof(buffer), "%H:%M:%S", localTime);
-    _text.setString(buffer);
 }
 
 void Display::ClockDisplay::draw(sf::RenderWindow &window)

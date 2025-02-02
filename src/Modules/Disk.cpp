@@ -8,9 +8,17 @@
 #include <fstream>
 #include <sstream>
 
+#include "Display/SFML/Container.hpp"
+#include "Display/SFML/ProgressBar.hpp"
+#include "Display/SFML/TextBox.hpp"
+#include "Display/SFML/Chart.hpp"
+#include "Modules/HostInfo.hpp"
+#include "Modules/CpuUsage.hpp"
 #include "Modules/Disk.hpp"
+#include "IModule.hpp"
+#include "Utils.hpp"
 
-Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(0, 0)), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
+Krell::Modules::Disk::Disk() : IModule(sf::Vector2f(400, 200)), _used(0), _free(0), _total(0), _usedPercent(0), _freePercent(0)
 {
     refresh();
 }
@@ -58,4 +66,22 @@ double Krell::Modules::Disk::getValue(ModuleKey key) const
     if (key == FREEPERCENT)
         return static_cast<double>(_freePercent);
     return 0.0;
+}
+
+void Krell::Modules::Disk::drawModule(SFMLDisplay &disp)
+{
+    Display::Container container(sf::Vector2f(950, 600), size);
+    container.draw(disp.getWindow());
+
+    Display::TextBox titleBox(sf::Vector2f(360, 30), "Disk Information", disp.getFont());
+    titleBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    titleBox.draw(disp.getWindow());
+
+    std::string diskInfo = "Total Disk Space: " + std::to_string(_total / (1024 * 1024 * 1024)) + " GB\n";
+    diskInfo += "Used Disk Space: " + std::to_string(_used / (1024 * 1024 * 1024)) + " GB (" + std::to_string(_usedPercent) + "%)\n";
+    diskInfo += "Free Disk Space: " + std::to_string(_free / (1024 * 1024 * 1024)) + " GB (" + std::to_string(_freePercent) + "%)\n";
+
+    Display::TextBox infoBox(sf::Vector2f(360, 90), diskInfo, disp.getFont());
+    infoBox.setPosition(vecCalc(container.getPosition(), 20, 70));
+    infoBox.draw(disp.getWindow());
 }

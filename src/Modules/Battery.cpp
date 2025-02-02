@@ -7,15 +7,15 @@
 
 #include <fstream>
 
-#include "Modules/Battery.hpp"
-#include "IModule.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/Chart.hpp"
+#include "Modules/Battery.hpp"
+#include "IModule.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(100, 100)), _batteryPercent(0), _batteryTime(0), _charging(false)
+Krell::Modules::Battery::Battery() : IModule(sf::Vector2f(400, 100)), _batteryPercent(0), _batteryTime(0), _charging(false)
 {
 
 }
@@ -86,19 +86,18 @@ double Krell::Modules::Battery::getValue(ModuleKey key) const
 
 void Krell::Modules::Battery::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(50, 370), size);
+    Display::Container container(sf::Vector2f(500, 700), size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());
 
-    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "Battery", disp.getFont());
-    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 200, 200));
-    cpuInfoTextBox.draw(disp.getWindow());
+    Display::TextBox batteryTextBox(sf::Vector2f(20, 20), "Battery Status", disp.getFont());
+    batteryTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    batteryTextBox.draw(disp.getWindow());
 
-    std::string batteryInfo = "Battery: " + std::to_string(getValue(IModule::TOTAL)) + "%\n";
-
+    std::string batteryInfo = "Battery: " + std::to_string(static_cast<int>(getValue(IModule::TOTAL))) + "%\n";
 
     Display::TextBox modelTextBox(sf::Vector2f(20, 20), batteryInfo, disp.getFont());
-    modelTextBox.setPosition(vecCalc(container.getPosition(), 200, 500));
+    modelTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));
     modelTextBox.draw(disp.getWindow());
 }

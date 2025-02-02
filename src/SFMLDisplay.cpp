@@ -65,12 +65,9 @@ void Krell::SFMLDisplay::refresh()
 
     // Refresh Delay
     Display::TextBox delayTextBox(sf::Vector2f(20, 20), "Refresh Delay: " + std::to_string(_refreshDelay) + "ms", getFont());
-    delayTextBox.setPosition(sf::Vector2f(700, 70));
+    delayTextBox.setPosition(sf::Vector2f(680, 70));
     delayTextBox.draw(getWindow());
 
-    Display::ClockDisplay clockDisplay(sf::Vector2f(200, 50), sf::Vector2f(1500, 0));
-    clockDisplay.update();
-    clockDisplay.draw(getWindow());
     if (_delayClock.getElapsedTime().asMilliseconds() > _refreshDelay)
     {
         _delayClock.restart();

@@ -10,12 +10,12 @@
 #include <fstream>
 #include <map>
 
-#include "Modules/CpuInfo.hpp"
-#include "IModule.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/Chart.hpp"
+#include "Modules/CpuInfo.hpp"
+#include "IModule.hpp"
 #include "Utils.hpp"
 
 Krell::Modules::CpuInfo::CpuInfo() : IModule(sf::Vector2f(400, 200))

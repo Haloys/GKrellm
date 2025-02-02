@@ -5,20 +5,19 @@
 ** Network
 */
 
-
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <dirent.h>
 
-#include "Modules/Network.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/Chart.hpp"
+#include "Modules/Network.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::Network::Network() : IModule(sf::Vector2f(400, 430)), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
+Krell::Modules::Network::Network() : IModule(sf::Vector2f(400, 300)), _bytesSent(0), _bytesReceived(0), _packetsSent(0), _packetsReceived(0), _up(false)
 {
 
 }
@@ -111,46 +110,34 @@ double Krell::Modules::Network::getValue(ModuleKey key) const {
 void Krell::Modules::Network::drawModule(SFMLDisplay &disp)
 {
     Display::Container container(sf::Vector2f(950, 50), size);
-    Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
-
     container.draw(disp.getWindow());
 
-    Display::TextBox bytesSentTextBox(sf::Vector2f(20, 20), "Bytes Sent", disp.getFont());
-    bytesSentTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
-    bytesSentTextBox.draw(disp.getWindow());
-    progressBar.setProgress(getValue(IModule::BYTES_SENT), true);
-    progressBar.setPosition(vecCalc(container.getPosition(), 20, 60));
-    progressBar.draw(disp.getWindow());
+    auto formatBytes = [](double bytes) -> std::string {
+        if (bytes < 1024) return std::to_string(static_cast<int>(bytes)) + " B";
+        if (bytes < 1024 * 1024) return std::to_string(static_cast<int>(bytes / 1024)) + " KB";
+        return std::to_string(static_cast<int>(bytes / (1024 * 1024))) + " MB";
+    };
 
-    Display::TextBox bytesReceivedTextBox(sf::Vector2f(20, 20), "Bytes Received", disp.getFont());
-    bytesReceivedTextBox.setPosition(vecCalc(container.getPosition(), 20, 120));
-    bytesReceivedTextBox.draw(disp.getWindow());
-    progressBar.setProgress(getValue(IModule::BYTES_RECEIVED), true);
-    progressBar.setPosition(vecCalc(container.getPosition(), 20, 160));
-    progressBar.draw(disp.getWindow());
+    Display::TextBox titleBox(sf::Vector2f(360, 30), "Network Information", disp.getFont());
+    titleBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    titleBox.draw(disp.getWindow());
 
-    Display::TextBox packetsSentTextBox(sf::Vector2f(20, 20), "Packets Sent", disp.getFont());
-    packetsSentTextBox.setPosition(vecCalc(container.getPosition(), 20, 220));
-    packetsSentTextBox.draw(disp.getWindow());
-    progressBar.setProgress(getValue(IModule::PACKETS_SENT), true);
-    progressBar.setPosition(vecCalc(container.getPosition(), 20, 260));
-    progressBar.draw(disp.getWindow());
+    std::string status = "Status: " + std::string(_up ? "CONNECTED" : "DISCONNECTED");
+    Display::TextBox statusBox(sf::Vector2f(360, 30), status, disp.getFont());
+    statusBox.setPosition(vecCalc(container.getPosition(), 20, 70));
+    statusBox.draw(disp.getWindow());
 
-    Display::TextBox packetsReceivedTextBox(sf::Vector2f(20, 20), "Packets Received", disp.getFont());
-    packetsReceivedTextBox.setPosition(vecCalc(container.getPosition(), 20, 320));
-    packetsReceivedTextBox.draw(disp.getWindow());
-    progressBar.setProgress(getValue(IModule::PACKETS_RECEIVED), true);
-    progressBar.setPosition(vecCalc(container.getPosition(), 20, 360));
-    progressBar.draw(disp.getWindow());
+    std::string downloadInfo = "v Download\n";
+    downloadInfo += "Bytes: " + formatBytes(getValue(IModule::BYTES_RECEIVED)) + "\n";
+    downloadInfo += "Packets: " + std::to_string(static_cast<int>(getValue(IModule::PACKETS_RECEIVED)));
+    Display::TextBox downloadBox(sf::Vector2f(360, 60), downloadInfo, disp.getFont());
+    downloadBox.setPosition(vecCalc(container.getPosition(), 20, 120));
+    downloadBox.draw(disp.getWindow());
 
-    Display::Chart chart(sf::Vector2f(360, 150));
-    chart.setPosition(vecCalc(container.getPosition(), 20, 420));
-    static std::vector<float> values(50, 0);
-    if (disp.getDelayClock().getElapsedTime().asMilliseconds() > disp.getRefreshDelay())
-    {
-        values.erase(values.begin());
-        values.push_back(disp.getModule("network")->getValue(IModule::BYTES_SENT));
-    }
-    chart.setData({values}, true);
-    chart.draw(disp.getWindow());
+    std::string uploadInfo = "^ Upload\n";
+    uploadInfo += "Bytes: " + formatBytes(getValue(IModule::BYTES_SENT)) + "\n";
+    uploadInfo += "Packets: " + std::to_string(static_cast<int>(getValue(IModule::PACKETS_SENT)));
+    Display::TextBox uploadBox(sf::Vector2f(360, 60), uploadInfo, disp.getFont());
+    uploadBox.setPosition(vecCalc(container.getPosition(), 20, 200));
+    uploadBox.draw(disp.getWindow());
 }

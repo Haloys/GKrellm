@@ -9,11 +9,11 @@
 #include <fstream>
 #include <sstream>
 
-#include "Modules/MemoryInfo.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/Chart.hpp"
+#include "Modules/MemoryInfo.hpp"
 #include "Utils.hpp"
 
 Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(400, 400))

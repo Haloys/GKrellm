@@ -7,13 +7,13 @@
 
 #include <ctime>
 #include <iomanip>
+
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/TextBox.hpp"
+#include "Modules/DateTimeInfo.hpp"
 #include "Utils.hpp"
 
-#include "Modules/DateTimeInfo.hpp"
-
-Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(0, 0))
+Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(400, 200))
 {
     refresh();
 }
@@ -36,18 +36,15 @@ double Krell::Modules::DateTimeInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::DateTimeInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(350, 700), size);
+    Display::Container container(sf::Vector2f(500, 480), size);
 
     container.draw(disp.getWindow());
 
-    Display::TextBox cpuInfoTextBox(sf::Vector2f(10, 10), "date", disp.getFont());
-    cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 0, 0));
-    cpuInfoTextBox.draw(disp.getWindow());
+    Display::TextBox dateTimeTextBox(sf::Vector2f(20, 20), "Date & Time", disp.getFont());
+    dateTimeTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
+    dateTimeTextBox.draw(disp.getWindow());
 
-
-
-    Display::TextBox modelTextBox(sf::Vector2f(10, 10), _currentDateTime, disp.getFont());
-    modelTextBox.setPosition(vecCalc(container.getPosition(), 10, 20));
-    modelTextBox.draw(disp.getWindow());
-
+    Display::TextBox timeTextBox(sf::Vector2f(20, 20), _currentDateTime, disp.getFont());
+    timeTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));
+    timeTextBox.draw(disp.getWindow());
 }

@@ -17,8 +17,7 @@ Display::Chart::Chart(sf::Vector2f size) : _size(size)
 void Display::Chart::setPosition(sf::Vector2f position)
 {
     _background.setPosition(position);
-    for (auto &bar : _bars)
-    {
+    for (auto &bar : _bars) {
         bar.setPosition(position);
     }
 }
@@ -35,18 +34,12 @@ void Display::Chart::setData(const std::vector<float> &data, bool difColor)
         bar.setSize(sf::Vector2f(barWidth - 2, barHeight));
         bar.setFillColor(BAR_COLOR_GREEN);
         bar.setPosition(_background.getPosition().x + 10 + i * barWidth, _background.getPosition().y + (_size.y - 10 - barHeight));
-        if (difColor == true || percentage > 25)
-        {
-            if (percentage <= 50)
-            {
+        if (difColor == true || percentage > 25) {
+            if (percentage <= 50) {
                 bar.setFillColor(BAR_COLOR_YELLOW);
-            }
-            else if (percentage <= 75)
-            {
+            } else if (percentage <= 75) {
                 bar.setFillColor(BAR_COLOR_ORANGE);
-            }
-            else
-            {
+            } else {
                 bar.setFillColor(BAR_COLOR_RED);
             }
         }

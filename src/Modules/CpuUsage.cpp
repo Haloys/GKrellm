@@ -11,12 +11,12 @@
 #include <fstream>
 #include <map>
 
-#include "Modules/CpuUsage.hpp"
-#include "IModule.hpp"
 #include "Display/SFML/Container.hpp"
 #include "Display/SFML/ProgressBar.hpp"
 #include "Display/SFML/TextBox.hpp"
 #include "Display/SFML/Chart.hpp"
+#include "Modules/CpuUsage.hpp"
+#include "IModule.hpp"
 #include "Utils.hpp"
 
 Krell::Modules::CpuUsage::CpuUsage() : IModule(sf::Vector2f(400, 290))
@@ -79,7 +79,6 @@ double Krell::Modules::CpuUsage::getValue(ModuleKey key) const
             return 0.0;
     }
 }
-
 
 void Krell::Modules::CpuUsage::drawModule(SFMLDisplay &disp)
 {
