@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
 #include "SFMLDisplay.hpp"
@@ -121,6 +122,9 @@ void Krell::SFMLDisplay::handleEvents()
                     break;
                 case sf::Keyboard::N:
                     _modules["network"]->toggle();
+                    break;
+                case sf::Keyboard::B:
+                    _modules["battery"]->toggle();
                     break;
 
                 default:

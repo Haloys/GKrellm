@@ -11,3 +11,4 @@ D - toggle datetime
 H - toggle host
 O - toggle os
 N - toggle network
+B - toggle battery

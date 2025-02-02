@@ -58,19 +58,19 @@ double Krell::Modules::OsInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::OsInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(420, 0), size);
+    Display::Container container(sf::Vector2f(350, 0), size);
 
     container.draw(disp.getWindow());
 
-    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "Host", disp.getFont());
+    Display::TextBox cpuInfoTextBox(sf::Vector2f(20, 20), "", disp.getFont());
     cpuInfoTextBox.setPosition(vecCalc(container.getPosition(), 20, 20));
     cpuInfoTextBox.draw(disp.getWindow());
 
-    std::string Host = "Host: " + _osName + "\n";
+    std::string Host = "Host: " + _osName + "\n" + "Kernel: " + _kernelVersion + "\n" + "Machine: " + _machine;
 
 
     Display::TextBox modelTextBox(sf::Vector2f(10, 10), Host, disp.getFont());
-    modelTextBox.setPosition(vecCalc(container.getPosition(), 20, 50));
+    modelTextBox.setPosition(vecCalc(container.getPosition(), 10, 20));
     modelTextBox.draw(disp.getWindow());
 
 }
