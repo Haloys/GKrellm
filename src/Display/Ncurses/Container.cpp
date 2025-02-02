@@ -28,17 +28,15 @@ void Krell::NCursesDisplay::drawHeader(int maxX)
 {
     const auto& dateTime = dynamic_cast<const Modules::DateTimeInfo&>(*_modules.at("datetime"));
     const auto& hostInfo = dynamic_cast<const Modules::HostInfo&>(*_modules.at("host"));
-    const auto& osInfo = dynamic_cast<const Modules::OsInfo&>(*_modules.at("os"));
 
     std::string currentTime = dateTime.getCurrentDateTime();
     attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(1, maxX - currentTime.length() - 2, "%s", currentTime.c_str());
     attroff(COLOR_PAIR(2) | A_BOLD);
-
     attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(1, 2, "%s@%s", hostInfo.getUsername().c_str(), hostInfo.getHostname().c_str());
     attroff(COLOR_PAIR(2) | A_BOLD);
     attron(COLOR_PAIR(3));
-    mvprintw(2, 2, "%s (%s)", osInfo.getOsName().c_str(), osInfo.getKernelVersion().c_str());
+    mvprintw(3, 2, "Better than htop");
     attroff(COLOR_PAIR(3));
 }
