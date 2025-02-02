@@ -64,8 +64,13 @@ double Krell::Modules::CpuInfo::getValue(ModuleKey key) const
         return static_cast<double>(CpuThreads());
     if (key == MGHZ)
         return static_cast<double>(CpuMhz());
-    if (key == TEMPERATURE)
-        return (std::stof(_cpuInfo.at("Temperature"))) / 1000;
+    if (key == TEMPERATURE) {
+        try {
+            return (std::stof(_cpuInfo.at("Temperature"))) / 1000;
+        } catch (const std::exception &e) {
+            return 0.0;
+        }
+    }
     return 0.0;
 }
 
