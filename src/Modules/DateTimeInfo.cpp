@@ -13,7 +13,7 @@
 #include "Modules/DateTimeInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(400, 200), "DateTimeInfo")
+Krell::Modules::DateTimeInfo::DateTimeInfo() : IModule(sf::Vector2f(500, 480), sf::Vector2f(400, 200), "DateTimeInfo")
 {
     refresh();
 }
@@ -36,7 +36,7 @@ double Krell::Modules::DateTimeInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::DateTimeInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(500, 480), size);
+    Display::Container container(pos, size);
 
     container.draw(disp.getWindow());
 

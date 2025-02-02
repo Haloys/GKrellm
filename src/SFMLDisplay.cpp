@@ -40,6 +40,20 @@ void Krell::SFMLDisplay::start()
 
 void Krell::SFMLDisplay::drawModule()
 {
+    int yOffset[3] = {60, 60, 60};
+    int column = 0;
+
+    for (const auto &[name, module] : _modules)
+    {
+        if (module->isEnabled())
+        {
+            module->pos = sf::Vector2f(50 + column * 500, yOffset[column]);
+            module->drawModule(*this);
+            yOffset[column] += module->size.y + 10;
+            column = (column + 1) % 3;
+        }
+    }
+
     sf::RectangleShape button(sf::Vector2f(100, 30));
     button.setPosition(sf::Vector2f(1500, 10));
     button.setFillColor(sf::Color::Blue);

@@ -40,7 +40,8 @@ namespace Krell {
             virtual void refresh() = 0;
             virtual double getValue(ModuleKey key) const = 0;
 
-            IModule(sf::Vector2f s, const std::string& name) : size(s), _name(name) {}
+            IModule(sf::Vector2f p, sf::Vector2f s, const std::string& name) : pos(p), size(s), _name(name) {}
+            sf::Vector2f pos;
             sf::Vector2f size;
 
             void disable() {

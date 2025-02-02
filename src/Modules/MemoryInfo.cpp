@@ -16,7 +16,7 @@
 #include "Modules/MemoryInfo.hpp"
 #include "Utils.hpp"
 
-Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(400, 400), "MemoryInfo")
+Krell::Modules::MemoryInfo::MemoryInfo() : IModule(sf::Vector2f(500, 50), sf::Vector2f(400, 400), "MemoryInfo")
 {
     refresh();
 }
@@ -75,7 +75,7 @@ double Krell::Modules::MemoryInfo::getValue(ModuleKey key) const
 
 void Krell::Modules::MemoryInfo::drawModule(SFMLDisplay &disp)
 {
-    Display::Container container(sf::Vector2f(500, 50), size);
+    Display::Container container(pos, size);
     Display::ProgressBar progressBar(sf::Vector2f(360, 50), disp.getFont());
 
     container.draw(disp.getWindow());
