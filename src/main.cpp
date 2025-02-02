@@ -12,7 +12,6 @@
 
 #include "NCursesDisplay.hpp"
 #include "SFMLDisplay.hpp"
-#include "Modules/CpuUsage.hpp"
 #include "Modules/CpuInfo.hpp"
 
 static std::unique_ptr<Krell::IDisplay> createDisplay(const std::string& mode)
@@ -28,13 +27,8 @@ static void run(Krell::IDisplay& display)
 {
     display.start();
 
-    Krell::Modules::CpuUsage cpuUsage;
-    Krell::Modules::CpuInfo cpuInfo;
-
     while (display.isRunning()) {
         display.handleEvents();
-        cpuUsage.refresh();
-        cpuInfo.refresh();
         display.drawModule();
         display.refresh();
     }
